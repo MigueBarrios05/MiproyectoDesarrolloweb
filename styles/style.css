@@ -1,0 +1,155 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+    text-align: center;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+    
+}
+
+img {
+    max-width: 100%;
+max-height: 100%;
+}
+
+
+#informacion, #contacto, #Siguenos {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#informacion h2, #informacion h3, #contacto h2, #Siguenos h2 {
+    color: #333;
+}
+
+#informacion p, #informacion ul, #contacto p, #contacto ul, #Siguenos ul {
+    color: #666;
+    line-height: 1.6;
+}
+
+.slider {
+    position:relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#contacto ul, #Siguenos ul {
+    list-style: none;
+    padding: 0;
+}
+
+#contacto ul li, #Siguenos ul li {
+    margin-bottom: 10px;
+}
+
+#Siguenos ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+#Siguenos ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #333;
+}
+
+section p, section ul {
+    color: #666;
+    line-height: 1.6;
+}
+
+.btn-inscribirse {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-inscribirse:hover {
+    background-color: #555;
+}
+
+
