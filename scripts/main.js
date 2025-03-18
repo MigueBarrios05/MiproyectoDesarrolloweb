@@ -21,5 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(slideIndex);
     setInterval(() => {
         moveSlide(1);
-    }, 5000); // Cambia de imagen cada 3 segundos
+    }, 5000); 
 });
