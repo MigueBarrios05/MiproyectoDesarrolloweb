@@ -13,12 +13,36 @@
     <div>
         <section id="usuarios">
             <h2>Editar Usuarios</h2>
-            <!-- Aquí se podrá editar la información de los usuarios -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="usuarios-lista">
+                    <!-- Aquí se llenará la lista de usuarios -->
+                </tbody>
+            </table>
         </section>
         <section id="cursos">
             <h2>Editar Cursos</h2>
-            <!-- Aquí se podrá editar la información de los cursos disponibles -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre del Curso</th>
+                        <th>Nivel</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cursos-lista">
+                    <!-- Aquí se llenará la lista de cursos -->
+                </tbody>
+            </table>
         </section>
     </div>
+    <script src="scripts/controller.js"></script>
 </body>
 </html>
