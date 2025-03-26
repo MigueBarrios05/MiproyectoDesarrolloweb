@@ -59,9 +59,9 @@ function handleLogin(event) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.tipo === 'usuario') {
+        if (data.rol === 'estudiante') {
             window.location.href = 'Usuario.html';
-        } else if (data.tipo === 'administrador') {
+        } else if (data.rol === 'admin') {
             window.location.href = 'Perfiladmin.html';
         } else {
             alert('Tipo de usuario desconocido');
