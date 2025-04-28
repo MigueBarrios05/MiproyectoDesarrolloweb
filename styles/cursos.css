@@ -1,0 +1,155 @@
+/* styles/cursos.css */
+
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0d1117; /* Fondo más oscuro */
+    color: #e0e0e0; /* Texto claro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+header {
+    background: linear-gradient(90deg, #007bff, #0056b3); /* Degradado azul */
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra de texto */
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #d1d1d1;
+}
+
+/* Tarjetas de cursos */
+.card {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a); /* Fondo con degradado sutil */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Sombra más intensa */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Para evitar que el contenido sobresalga */
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02); /* Efecto de elevación y agrandamiento */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Sombra más intensa */
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #00d4ff; /* Azul brillante */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #c9c9c9;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* Imágenes */
+.card-img-top {
+    border-radius: 12px 12px 0 0; /* Bordes redondeados solo en la parte superior */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.card-img-top:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento */
+    filter: brightness(1.2); /* Aumentar el brillo */
+}
+
+/* Botones */
+.btn {
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Verde más oscuro */
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #b02a37; /* Rojo más oscuro */
+}
+
+/* Listas */
+.list-group-item {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #3a3a3a; /* Fondo más claro al pasar el cursor */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+}

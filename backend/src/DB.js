@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-require('dotenv').config(); // Cargar variables de entorno
+require('dotenv').config(); 
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
@@ -8,13 +8,13 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME || 'sistemaOffice'
 });
 
-// Conectar a la base de datos
+
 connection.connect(err => {
   if (err) {
     console.error('Error conectando a MySQL:', err);
     return;
   }
-  console.log('🔗 Conexión exitosa a MySQL');
+  console.log(' Conexión exitosa a MySQL');
 });
 
 module.exports = connection;

@@ -3,139 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
     <title>OFFICE KING'S</title>
+
+    <!-- Enlace al CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+    <!-- Tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="styles/style.css">
 </head>
-<body>
-    <header>
-        <h1>Trading</h1>
+<body class="custom-background">
+    <!-- Encabezado -->
+    <header class="bg-primary text-white text-center py-5 shadow">
+        <h1 class="display-4 fw-bold">Trading - OFFICE KING'S</h1>
+<p class="lead">La mejor plataforma para aprender trading desde cero</p>
+<a href="#informacion" class="btn btn-light btn-lg mt-3">Conoce Más</a>
     </header>
-    
-    <div>
-        <section>
-            <nav>
-                <ul>
-                    <li><a href="#informacion">Conoce un poco acerca de nosotros</a></li>
-                    <li><a href="cursos.html">Nuestros cursos</a></li>
-                    <li><a href="#Siguenos">Nuestras redes sociales</a></li>
-                    <li><a href="Registro.html">Registro/Inicio Sesión</a></li>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Office King's</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#informacion">Acerca de Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cursos.html">Nuestros Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Siguenos">Redes Sociales</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white px-3" href="Registro.html">Registro/Inicio Sesión</a></li>
                 </ul>
-            </nav>
+            </div>
+        </div>
+    </nav>
 
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide"><img src="imagenes/IMG1.jpg" alt="Imagen 1"></div>
-                    <div class="slide"><img src="imagenes/IMG2.jpg" alt="Imagen 2"></div>
-                    <div class="slide"><img src="imagenes/IMG3.jpg" alt="Imagen 3"></div>
-                    <div class="slide"><img src="imagenes/IMG4.jpg" alt="Imagen 4"></div>
-                    <div class="slide"><img src="imagenes/IMG5.jpg" alt="Imagen 5"></div>
-                    <div class="slide"><img src="imagenes/IMG6.jpg" alt="Imagen 6"></div>
+    <!-- Carrusel Mejorado -->
+    <div id="carouselExampleIndicators" class="carousel slide mt-4 shadow" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+<!-- Primera Imagen -->
+            <div class="carousel-item active">
+                <img src="imagenes/IMG1.jpg" class="d-block w-100" alt="Imagen 1">
+<div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h5 class="text-white">Bienvenido a Office King's</h5>
+                    <p>La mejor plataforma para aprender trading desde cero.</p>
+                    <a href="#informacion" class="btn btn-primary">Saber Más</a>
                 </div>
-                <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-                <button class="next" onclick="moveSlide(1)">&#10095;</button>
-            </div>        
-        </section>
+            </div>
+<!-- Segunda Imagen -->
+            <div class="carousel-item">
+                <img src="imagenes/IMG2.jpg" class="d-block w-100" alt="Imagen 2">
+<div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h5 class="text-white">Cursos Personalizados</h5>
+                    <p>Aprende a tu ritmo con nuestros cursos organizados por niveles.</p>
+                    <a href="cursos.html" class="btn btn-secondary">Ver Cursos</a>
+                </div>
+            </div>
+<!-- Tercera Imagen -->
+            <div class="carousel-item">
+                <img src="imagenes/IMG3.jpg" class="d-block w-100" alt="Imagen 3">
+<div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h5 class="text-white">Certificación Garantizada</h5>
+                    <p>Obtén tu certificación digital al completar cada nivel.</p>
+                    <a href="Registro.html" class="btn btn-success">Regístrate Ahora</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
     </div>
 
-    <div>
-        <section id="informacion">
-            <h2>Conoce un poco de nosotros – Cursos para Aspirantes</h2>
-            <p>Bienvenidos a nuestra sesión informativa sobre la <strong>Office King´s</strong>, una plataforma educativa diseñada para formar nuevos traders a través de cursos especializados en <strong>tres niveles</strong>: fácil, intermedio y avanzado.</p>
-            <p>Hoy explicaremos <strong>quiénes somos, cuál es nuestra misión y visión, y cómo funciona la plataforma</strong> para que nuestros clientes y futuros usuarios comprendan el valor de este proyecto.</p>
-            <div class="image-container">
-                <img src="imagenes/IMG1.jpg" alt="Introducción">
+    <!-- Información -->
+    <section id="informacion" class="container my-5">
+        <h2 class="text-center text-primary fw-bold">Conoce un poco de nosotros – Cursos para Aspirantes</h2>
+        <p class="text-justify">Bienvenidos a nuestra sesión informativa sobre la <strong>Office King´s</strong>, una plataforma educativa diseñada para formar nuevos traders a través de cursos especializados en <strong>tres niveles</strong>: fácil, intermedio y avanzado.</p>
+        <p class="text-justify">Hoy explicaremos <strong>quiénes somos, cuál es nuestra misión y visión, y cómo funciona la plataforma</strong> para que nuestros clientes y futuros usuarios comprendan el valor de este proyecto.</p>
+        <div class="text-center">
+            <img src="imagenes/IMG1.jpg" class="img-fluid rounded shadow" alt="Introducción">
+        </div>
+    </section>
+
+    <!-- Misión y Visión -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h3 class="text-center text-primary fw-bold mb-4">Misión y Visión</h3>
+            <div class="row align-items-center">
+                <!-- Imagen -->
+                <div class="col-lg-6 text-center mb-4 mb-lg-0">
+                    <img src="imagenes/IMG3.jpg" class="img-fluid rounded shadow-lg" alt="Misión y Visión">
+                </div>
+                <!-- Texto -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-lg bg-white">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary fw-bold">Nuestra Misión</h4>
+                            <p class="card-text">Proporcionar <strong>educación accesible y estructurada en trading</strong>, combinando teoría y práctica con el acompañamiento de traders expertos.</p>
+                            <h4 class="card-title text-primary fw-bold mt-4">Nuestra Visión</h4>
+                            <p class="card-text">Ser la <strong>academia de referencia en trading en línea</strong>, reconocida por su metodología innovadora, contenido de alta calidad y soporte continuo a los estudiantes.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <h3> Quiénes Somos y Qué Hacemos🧐🔎</h3>
-            <p>Somos una academia digital enfocada en la enseñanza del trading, brindando conocimientos teóricos y prácticos para que los aspirantes puedan:</p>
-            <ul>
-                <li> Comprender los fundamentos del trading.</li>
-                <li> Aplicar análisis técnico y gestión de riesgos.</li>
-                <li> Desarrollar estrategias para operar en mercados financieros.</li>
-            </ul>
-            <p>La plataforma está diseñada para ser accesible a cualquier persona, sin importar su nivel de experiencia previa en finanzas o inversiones.</p>
-            <div class="image-container">
-                <img src="imagenes/IMG2.jpg" alt="Quiénes Somos">
+    <!-- Beneficios -->
+    <section id="beneficios" class="container my-5">
+        <h3 class="text-center text-primary fw-bold">Beneficios para los Usuarios</h3>
+<div class="row">
+            <div class="col-md-6">
+        <ul class="list-group shadow">
+            <li class="list-group-item">Catálogo de Cursos organizados por nivel.</li>
+            <li class="list-group-item">Interfaz intuitiva y amigable.</li>
+            <li class="list-group-item">Panel de Usuario para seguimiento del progreso.</li>
+</ul>
             </div>
+            <div class="col-md-6">
+                <ul class="list-group shadow">
+            <li class="list-group-item">Soporte y Tutorías con traders expertos.</li>
+            <li class="list-group-item">Certificación Digital al completar cada nivel.</li>
+        </ul>
+</div>
+        </div>
+    </section>
 
-            <h3>Misión y Visión</h3>
-            <p><strong>Misión</strong></p>
-            <p>Nuestra misión es proporcionar <strong>educación accesible y estructurada en trading</strong>, combinando teoría y práctica con el acompañamiento de traders expertos. Queremos que nuestros usuarios adquieran habilidades financieras sólidas y puedan aplicar estrategias efectivas en los mercados.</p>
-            <p><strong> Visión</strong></p>
-            <p>Ser la <strong>academia de referencia en trading en línea</strong>, reconocida por su metodología innovadora, contenido de alta calidad y soporte continuo a los estudiantes.</p>
-            <div class="image-container">
-                <img src="imagenes/IMG3.jpg" alt="Misión y Visión">
-            </div>
-
-            <h3>NUESTROS OBJETIVOS</h3>
-            <p>Los objetivos de la <strong>Office King´s</strong> son:</p>
-            <ul>
-                <li> Ofrecer cursos estructurados en niveles (fácil, intermedio y avanzado).</li>
-                <li> Crear una comunidad de aprendizaje con interacción entre estudiantes y expertos.</li>
-                <li> Brindar herramientas prácticas, evaluaciones y seguimiento del progreso.</li>
-                <li> Otorgar certificaciones digitales para validar el aprendizaje de los estudiantes.</li>
+    <!-- Redes Sociales -->
+    <section id="Siguenos" class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold">Síguenos en Nuestras Redes Sociales</h2>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="https://www.facebook.com/officekings" class="text-white" target="_blank">Facebook</a></li>
+                <li class="list-inline-item"><a href="https://www.twitter.com/officekings" class="text-white" target="_blank">Twitter</a></li>
+                <li class="list-inline-item"><a href="https://www.instagram.com/officekings" class="text-white" target="_blank">Instagram</a></li>
             </ul>
-            <div class="image-container">
-                <img src="imagenes/IMG4.jpg" alt="Objetivos del Proyecto">
-            </div>
+        </div>
+    </section>
 
-            <h3>Cómo Funciona la Academia de Trading</h3>
-            <p>El proceso dentro de la academia sigue <strong>cuatro etapas principales</strong>:</p>
-            <ul>
-                <li> <strong>Registro e Inscripción</strong> – Los usuarios se registran en la plataforma, crean su perfil y seleccionan el curso según su nivel.</li>
-                <li> <strong>Acceso al Contenido</strong> – Una vez inscritos, acceden a lecciones, videos explicativos y material de estudio.</li>
-                <li> <strong>Evaluación y Seguimiento</strong> – Se realizan pruebas, ejercicios y exámenes para medir el progreso y recibir retroalimentación.</li>
-                <li> <strong>Certificación</strong> – Al completar el curso, los estudiantes reciben un certificado digital que valida sus conocimientos adquiridos.</li>
-            </ul>
-            <p> <strong>Diagrama del proceso:</strong></p>
-            <p>Registro → Selección de curso (fácil, intermedio o avanzado) → Acceso al contenido → Evaluaciones → Certificación</p>
-            <div class="image-container">
-                <img src="imagenes/IMG5.jpg" alt="Cómo Funciona">
-            </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Office King's. Todos los derechos reservados.</p>
+    </footer>
 
-            <h3>Beneficios para los Usuarios</h3>
-            <p>La plataforma está optimizada para ser <strong>rápida, segura y accesible desde cualquier dispositivo</strong>.</p>
-            <ul>
-                <li> <strong>Catálogo de Cursos</strong> – Sección donde se encuentran los cursos disponibles organizados por nivel.</li>
-                <li> <strong>Interfaz Intuitiva</strong> – Diseño claro y amigable para facilitar la navegación.</li>
-                <li> <strong>Panel de Usuario</strong> – Espacio donde cada estudiante puede hacer seguimiento de su progreso.</li>
-                <li> <strong>Soporte y Tutorías</strong> – Acceso a foros, sesiones en vivo y chat con traders expertos.</li>
-                <li> <strong>Evaluaciones y Certificación</strong> – Pruebas prácticas y emisión de certificados digitales.</li>
-                <li> <strong>Aprendizaje Estructurado</strong> – Contenidos diseñados para facilitar la progresión en el trading.</li>
-                <li> <strong>Acceso desde Cualquier Lugar</strong> – Plataforma en línea compatible con PC, tabletas y móviles.</li>
-                <li> <strong>Notificaciones y Alertas</strong> – Recordatorios sobre nuevas lecciones, exámenes y eventos.</li>
-                <li> <strong>Seguimiento del Progreso</strong> – Panel personalizado con indicadores de avance.</li>
-                <li> <strong>Certificación Digital</strong> – Documento acreditativo al completar cada nivel de formación.</li>
-            </ul>
-            <div class="image-container">
-                <img src="imagenes/IMG6.jpg" alt="Beneficios para los Usuarios">
-            </div>
-        </section>
-    </div>
+    <!-- Enlace al JavaScript de Bootstrap -->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 
-    <div>
-        <section id="contacto">
-            <h2>Contáctanos</h2>
-            <p>Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos:</p>
-            <ul>
-                <li> Email: contacto@officekings.com</li>
-                <li> Teléfono: +123 456 7890</li>
-                <li> Dirección: Calle Falsa 123, Ciudad, País</li>
-            </ul>
-        </section>
-    </div>
-
-    <div>
-        <section id="Siguenos">
-            <h2>Síguenos en Nuestras Redes Sociales</h2>
-            <ul>
-                <li><a href="https://www.facebook.com/officekings" target="_blank">Facebook</a></li>
-                <li><a href="https://www.twitter.com/officekings" target="_blank">Twitter</a></li>
-                <li><a href="https://www.instagram.com/officekings" target="_blank">Instagram</a></li>
-            </ul>
-        </section>
-    </div>
-
+    <!-- Tu archivo JavaScript personalizado -->
     <script src="scripts/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,164 @@
+/* styles/Rregistro.css */
+
+/* Estilo general del cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #cdadad; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto claro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+header {
+    background-color: #1f1f1f; /* Fondo más oscuro */
+    color: #ffffff; /* Texto blanco */
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra */
+    animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #d1d1d1;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tarjetas */
+.card {
+    background-color: #1e1e1e; /* Fondo oscuro para las tarjetas */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efecto de elevación */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Sombra más intensa */
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    background-color: #2c2c2c; /* Fondo oscuro para el encabezado */
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Formularios */
+form label {
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+    display: block;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2c2c2c; /* Fondo oscuro para los campos */
+    color: #e0e0e0; /* Texto claro */
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #007bff; /* Azul al enfocar */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+form input::placeholder {
+    color: #888; /* Color para los placeholders */
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Azul para los botones */
+    color: #f1d1d1; /* Texto blanco */
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+/* Espaciado entre formularios */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Pie de página */
+footer {
+    background-color: #1f1f1f; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco */
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5); /* Sombra superior */
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #d1d1d1;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}

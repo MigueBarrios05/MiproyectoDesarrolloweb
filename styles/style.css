@@ -1,14 +1,17 @@
 body{
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+    background-size: cover; /* La imagen cubrirá toda la pantalla */
+    background-position: center; /* Centrar la imagen */
+    background-attachment: fixed; /* La imagen permanece fija al hacer scroll */
+}
+.custom-background {
+    background: linear-gradient(135deg, #004085, #0056b3); /* Degradado azul */
+    color: #ffffff; /* Texto blanco */
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #004085; /* Azul oscuro */
+    color: #ffffff; /* Blanco */
     padding: 10px 0;
     text-align: center;
 }
@@ -150,6 +153,32 @@ section p, section ul {
 
 .btn-inscribirse:hover {
     background-color: #555;
+}
+
+/* Cambiar el color de los enlaces de navegación */
+.navbar-light .navbar-nav .nav-link {
+    color: #004085; /* Azul oscuro */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0056b3; /* Azul más claro */
+}
+
+/* Personalizar botones */
+.btn-primary {
+    background-color: #004085; /* Azul oscuro */
+    border-color: #004085;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul más claro */
+    border-color: #0056b3;
+}
+
+/* Cambiar el color de fondo del pie de página */
+footer {
+    background-color: #343a40; /* Gris oscuro */
+    color: #ffffff; /* Blanco */
 }
 
 
