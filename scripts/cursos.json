@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nombre": "Curso Básico",
+        "descripcion": "Curso introductorio para principiantes.",
+        "imagen": "imagenes/curso-facil.jpg",
+        "enlace": "basico.html"
+    },
+    {
+        "id": 2,
+        "nombre": "Curso Intermedio",
+        "descripcion": "Curso para usuarios con conocimientos básicos.",
+        "imagen": "imagenes/curso-intermedio.jpg",
+        "enlace": "intermedio.html"
+    },
+    {
+        "id": 3,
+        "nombre": "Curso Avanzado",
+        "descripcion": "Curso avanzado para profesionales.",
+        "imagen": "imagenes/curso-avanzado.jpg",
+        "enlace": "avanzado.html"
+    }
+]

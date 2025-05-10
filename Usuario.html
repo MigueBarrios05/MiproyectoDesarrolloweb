@@ -13,17 +13,36 @@
 </head>
 <body class="bg-dark text-light">
     <!-- Encabezado -->
-    <header class="bg-primary text-white text-center py-4">
-        <h1 class="display-5 fw-bold">Bienvenido, Usuario</h1>
+    <header class="bg-primary text-white text-center py-5 shadow-lg">
+        <h1 class="display-4 fw-bold">Bienvenido, Usuario</h1>
         <p class="lead">Gestiona tus cursos y actualiza tu perfil</p>
     </header>
 
     <!-- Contenido Principal -->
     <main class="container my-5">
+        <!-- Cursos Disponibles -->
+        <section id="cursos-disponibles" class="mb-5">
+            <h2 class="text-center text-info fw-bold mb-4">Cursos Disponibles</h2>
+            <div class="table-responsive shadow-lg rounded-4">
+                <table class="table table-dark table-striped table-hover align-middle">
+                    <thead class="table-info text-dark">
+                        <tr>
+                            <th>Curso</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cursos-disponibles-lista">
+                        <!-- Aquí se llenarán los cursos disponibles -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Cursos Inscritos -->
         <section id="cursos-inscritos" class="mb-5">
-            <h2 class="text-center text-info fw-bold">Cursos Inscritos</h2>
-            <div class="table-responsive shadow-lg rounded">
+            <h2 class="text-center text-success fw-bold mb-4">Cursos Inscritos</h2>
+            <div class="table-responsive shadow-lg rounded-4">
                 <table class="table table-dark table-striped table-hover align-middle">
                     <thead class="table-info text-dark">
                         <tr>
@@ -39,73 +58,41 @@
             </div>
         </section>
 
-        <!-- Actualizar Perfil -->
-        <section id="perfil" class="mb-5">
-            <h2 class="text-center text-warning fw-bold">Actualizar Perfil</h2>
-            <form id="perfilForm" class="bg-secondary p-4 rounded shadow-lg">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control rounded-pill" placeholder="Ingresa tu nombre" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email" class="form-control rounded-pill" placeholder="Ingresa tu correo electrónico" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Nueva Contraseña:</label>
-                    <input type="password" id="password" name="password" class="form-control rounded-pill" placeholder="Dejar en blanco para no cambiarla">
-                </div>
-                <button type="submit" class="btn btn-success w-100 rounded-pill">Actualizar Perfil</button>
-            </form>
-            <button id="eliminarPerfilButton" class="btn btn-danger w-100 mt-3 rounded-pill">Eliminar Perfil</button>
-        </section>
-
-        <!-- Inscripción a Cursos -->
-        <section id="inscripcion-cursos" class="mb-5">
-            <h2 class="text-center text-success fw-bold">Inscribirse en un Curso</h2>
-            <div class="d-flex justify-content-center gap-3">
-                <button class="btn btn-primary rounded-pill" onclick="inscribirUsuario(1)">Curso Básico</button>
-                <button class="btn btn-primary rounded-pill" onclick="inscribirUsuario(2)">Curso Intermedio</button>
-                <button class="btn btn-primary rounded-pill" onclick="inscribirUsuario(3)">Curso Avanzado</button>
+        <!-- Cursos de la Vista Cursos -->
+        <section id="cursos-vista" class="mb-5">
+            <h2 class="text-center text-success fw-bold mb-4">Explora Nuestros Cursos</h2>
+            <div class="row g-4" id="cursos-lista">
+                <!-- Aquí se llenarán los cursos dinámicamente -->
             </div>
         </section>
 
-        <!-- Cursos Disponibles -->
-        <section id="cursos-disponibles" class="mb-5">
-            <h2 class="text-center text-info fw-bold">Cursos Disponibles</h2>
-            <div class="table-responsive shadow-lg rounded">
-                <table class="table table-dark table-striped table-hover align-middle">
-                    <thead class="table-info text-dark">
-                        <tr>
-                            <th>Curso</th>
-                            <th>Descripción</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Curso Básico</td>
-                            <td>Introducción a la programación</td>
-                            <td><button class="btn btn-success rounded-pill" onclick="inscribirUsuario(1)">Inscribirse</button></td>
-                        </tr>
-                        <tr>
-                            <td>Curso Intermedio</td>
-                            <td>Programación orientada a objetos</td>
-                            <td><button class="btn btn-success rounded-pill" onclick="inscribirUsuario(2)">Inscribirse</button></td>
-                        </tr>
-                        <tr>
-                            <td>Curso Avanzado</td>
-                            <td>Desarrollo web avanzado</td>
-                            <td><button class="btn btn-success rounded-pill" onclick="inscribirUsuario(3)">Inscribirse</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- Actualizar Perfil -->
+        <section id="actualizar-perfil" class="mb-5">
+            <h2 class="text-center text-warning fw-bold mb-4">Actualizar Perfil</h2>
+            <div class="card shadow-lg border-0 bg-gradient rounded-4">
+                <div class="card-body">
+                    <form id="perfilForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control rounded-pill" placeholder="Actualiza tu nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico:</label>
+                            <input type="email" id="email" name="email" class="form-control rounded-pill" placeholder="Actualiza tu correo electrónico" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" id="password" name="password" class="form-control rounded-pill" placeholder="Actualiza tu contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 py-2 rounded-pill">Actualizar</button>
+                    </form>
+                </div>
             </div>
         </section>
 
         <!-- Cerrar Sesión -->
         <section id="cerrar-sesion" class="text-center">
-            <button id="logoutButton" class="btn btn-danger rounded-pill" onclick="cerrarSesion()">Cerrar Sesión</button>
+            <button id="logoutButton" class="btn btn-danger rounded-pill px-4 py-2" onclick="cerrarSesion()">Cerrar Sesión</button>
         </section>
     </main>
 
@@ -118,6 +105,25 @@
         // Función para cerrar sesión
         function cerrarSesion() {
             window.location.href = "registro.html"; // Redirige a la página de registro
+        }
+
+        // Función para inscribir al usuario en un curso
+        function inscribirUsuario(nombre, descripcion) {
+            const tablaCursosInscritos = document.getElementById('cursos-inscritos-lista');
+
+            // Crear una nueva fila para el curso inscrito
+            const nuevaFila = document.createElement('tr');
+            nuevaFila.innerHTML = `
+                <td>${nombre}</td>
+                <td>${descripcion}</td>
+                <td><button class="btn btn-primary rounded-pill">Acceder</button></td>
+            `;
+
+            // Agregar la nueva fila a la tabla de cursos inscritos
+            tablaCursosInscritos.appendChild(nuevaFila);
+
+            // Mostrar un mensaje de éxito
+            alert(`Te has inscrito exitosamente en el curso: ${nombre}`);
         }
     </script>
 </body>

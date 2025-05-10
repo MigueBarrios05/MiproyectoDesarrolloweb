@@ -41,13 +41,8 @@
                                 <label for="password" class="form-label">Contraseña:</label>
                                 <input type="password" id="password" name="password" class="form-control rounded-pill" placeholder="Crea una contraseña" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="tipo" class="form-label">Tipo de Usuario:</label>
-                                <select id="tipo" name="tipo" class="form-select rounded-pill" required>
-                                    <option value="estudiante">Estudiante</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                            </div>
+                            <!-- Tipo de usuario oculto -->
+                            <input type="hidden" id="tipo" name="tipo" value="estudiante">
                             <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill">Registrarse</button>
                         </form>
                     </div>

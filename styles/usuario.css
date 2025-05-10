@@ -1,0 +1,51 @@
+
+body {
+    background-color: #0d1117; 
+    color: #e0e0e0; 
+    font-family: 'Arial', sans-serif;
+}
+
+
+header {
+    background: linear-gradient(90deg, #007bff, #0056b3); 
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+    animation: fadeIn 1s ease-in-out; 
+}
+
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); 
+}
+
+
+.btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05); 
+}
+
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

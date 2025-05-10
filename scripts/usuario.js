@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    obtenerRolUsuario();
-    cargarCursosInscritos(); // Cargar cursos inscritos para estudiantes
+    cargarCursos(); // Cargar los cursos disponibles
+    cargarCursosInscritos(); // Cargar los cursos inscritos del usuario
 });
 
 console.log(localStorage.getItem('id_usuario'));
@@ -124,44 +124,53 @@ function inscribirCurso(id_curso) {
         return;
     }
 
-    fetch('http://localhost:3000/api/inscribir', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuario, id_curso })
-    })
+    // Verificar el rol del usuario
+    fetch(`http://localhost:3000/api/usuario/rol/${id_usuario}`)
         .then(response => response.json())
         .then(data => {
-            if (data.message) {
-                alert(data.message); // Mostrar el mensaje del backend
-                cargarCursosInscritos(); // Actualizar la lista de cursos inscritos
-            } else if (data.error) {
-                alert(`Error: ${data.error}`); // Mostrar el error del backend
-            } else {
-                alert('Hubo un problema al inscribir al curso.');
+            if (data.rol !== 'estudiante') { // Cambiar "usuario" por "estudiante"
+                alert('Error: Solo los usuarios con rol de "estudiante" pueden inscribirse en cursos.');
+                return;
             }
+
+            // Si el rol es válido, proceder con la inscripción
+            fetch('http://localhost:3000/api/inscribir', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_usuario, id_curso })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message); // Mostrar el mensaje del backend
+                        cargarCursosInscritos(); // Actualizar la lista de cursos inscritos
+                    } else if (data.error) {
+                        alert(`Error: ${data.error}`); // Mostrar el error del backend
+                    } else {
+                        alert('Hubo un problema al inscribir al curso.');
+                    }
+                })
+                .catch(error => console.error('Error al inscribir al curso:', error));
         })
-        .catch(error => console.error('Error al inscribir al curso:', error));
+        .catch(error => console.error('Error al verificar el rol del usuario:', error));
 }
 
-function inscribirUsuario(id_curso) {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID del usuario desde el almacenamiento local
+function inscribirUsuario(nombre, descripcion, enlace) {
+    const tablaCursosInscritos = document.getElementById('cursos-inscritos-lista');
 
-    fetch('http://localhost:3000/api/inscribir', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuario, id_curso })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error al inscribir al curso');
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(data.message); // Mostrar mensaje de éxito
-        cargarCursosInscritos(); // Recargar la lista de cursos inscritos
-    })
-    .catch(error => console.error('Error al inscribir al curso:', error));
+    // Crear una nueva fila para el curso inscrito
+    const nuevaFila = document.createElement('tr');
+    nuevaFila.innerHTML = `
+        <td>${nombre}</td>
+        <td>${descripcion}</td>
+        <td><a href="${enlace}" class="btn btn-primary rounded-pill">Acceder</a></td>
+    `;
+
+    // Agregar la nueva fila a la tabla de cursos inscritos
+    tablaCursosInscritos.appendChild(nuevaFila);
+
+    // Mostrar un mensaje de éxito
+    alert(`Te has inscrito exitosamente en el curso: ${nombre}`);
 }
 
 function cargarCursosInscritos() {
@@ -179,7 +188,7 @@ function cargarCursosInscritos() {
                     <td>${curso.nombre_curso}</td>
                     <td>${curso.descripcion}</td>
                     <td>
-                        <a href="${curso.enlace}" target="_blank">Ir al curso</a>
+                        <a href="${curso.enlace}" target="_blank" class="btn btn-primary rounded-pill">Ir al curso</a>
                     </td>
                 `;
                 cursosLista.appendChild(row);
@@ -198,6 +207,7 @@ function iniciarSesion(email, password) {
         .then(data => {
             if (data.id_usuario) {
                 localStorage.setItem('id_usuario', data.id_usuario); // Guardar el ID del usuario
+                localStorage.setItem('rol', data.rol); // Guardar el rol del usuario
                 alert('Inicio de sesión exitoso');
                 window.location.href = 'Usuario.html'; // Redirigir al perfil del usuario
             } else {
@@ -215,8 +225,10 @@ function obtenerRolUsuario() {
         .then(data => {
             if (data.rol === 'admin') {
                 mostrarContenidoAdmin();
-            } else if (data.rol === 'usuario') {
+            } else if (data.rol === 'estudiante') { // Cambiar "usuario" por "estudiante"
                 mostrarContenidoEstudiante();
+            } else {
+                alert('Error: Rol no reconocido.');
             }
         })
         .catch(error => console.error('Error al obtener el rol del usuario:', error));
@@ -231,6 +243,33 @@ function mostrarContenidoEstudiante() {
     document.getElementById('inscripcion-cursos').style.display = 'block'; // Mostrar inscripción
     document.getElementById('cursos-disponibles').style.display = 'block'; // Mostrar cursos disponibles
 }
+
+// Función para cargar los cursos desde un archivo JSON
+function cargarCursos() {
+    fetch('http://localhost:3000/api/cursos') // Endpoint para obtener los cursos
+        .then(response => response.json())
+        .then(cursos => {
+            const cursosDisponiblesLista = document.getElementById('cursos-disponibles-lista');
+            cursosDisponiblesLista.innerHTML = ''; // Limpiar la tabla
+
+            cursos.forEach(curso => {
+                const fila = `
+                    <tr>
+                        <td>${curso.nombre}</td>
+                        <td>${curso.descripcion}</td>
+                        <td>
+                            <button class="btn btn-success rounded-pill" onclick="inscribirCurso(${curso.id_curso})">Inscribirse</button>
+                        </td>
+                    </tr>
+                `;
+                cursosDisponiblesLista.innerHTML += fila;
+            });
+        })
+        .catch(error => console.error('Error al cargar los cursos:', error));
+}
+
+// Llamar a la función al cargar la página
+document.addEventListener('DOMContentLoaded', cargarCursos);
 
 document.getElementById('perfilForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevenir el comportamiento por defecto del formulario

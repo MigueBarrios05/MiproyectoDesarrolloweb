@@ -65,10 +65,10 @@ router.post('/inscribir', (req, res) => {
             res.status(500).json({ error: err.message });
         } else if (results.length === 0) {
             res.status(404).json({ error: 'Usuario no encontrado' });
-        } else if (results[0].rol !== 'usuario') {
-            res.status(403).json({ error: 'Solo los usuarios con rol de "usuario" pueden inscribirse en cursos.' });
+        } else if (results[0].rol !== 'estudiante') { // Cambiar "usuario" por "estudiante"
+            res.status(403).json({ error: 'Solo los usuarios con rol de "estudiante" pueden inscribirse en cursos.' });
         } else {
-            // Si el rol es "usuario", proceder con la inscripción
+            // Si el rol es "estudiante", proceder con la inscripción
             db.query(
                 'INSERT INTO Inscripcion (id_usuario, id_curso) VALUES (?, ?)',
                 [id_usuario, id_curso],
