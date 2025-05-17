@@ -3,20 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/style.css">
-    <title>Curso Básico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/basico.css">
+    <title>Aprende Trading Básico</title>
 </head>
-<body>
-    <header>
-        <h1>Curso Básico</h1>
+<body class="bg-light text-dark">
+    <header class="bg-primary text-white py-4 shadow">
+        <div class="container text-center">
+            <h1 class="fw-bold">Aprende Trading Básico</h1>
+        </div>
     </header>
-    <main>
-        <p>Bienvenido al Curso Básico. Aquí encontrarás contenido introductorio para comenzar tu aprendizaje.</p>
-        <ul>
-            <li>Lección 1: Introducción</li>
-            <li>Lección 2: Conceptos básicos</li>
-            <li>Lección 3: Ejercicios prácticos</li>
-        </ul>
+
+    <main class="container my-5">
+        <!-- Sección 1: Introducción al Trading -->
+        <section class="mb-5">
+            <h2 class="text-primary fw-bold section-title">¿Qué es el Trading?</h2>
+            <p class="lead section-description">
+                El trading consiste en la compra y venta de activos financieros con el objetivo de beneficiarse de la volatilidad de los mercados.
+            </p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Diferencias entre trading e inversión.</li>
+                <li class="list-group-item">Mercados principales: Forex, Acciones, Criptomonedas, etc.</li>
+                <li class="list-group-item">Objetivo del trading: Beneficiarse de la volatilidad.</li>
+            </ul>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/400x200" alt="Gráfico de velas" class="img-fluid rounded shadow">
+                    <p class="text-center mt-2">Ejemplo de gráfico de velas.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/400x200" alt="Trading vs Inversión" class="img-fluid rounded shadow">
+                    <p class="text-center mt-2">Comparación: Trading vs. Inversión.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Conceptos Básicos -->
+        <section class="mb-5">
+            <h2 class="text-primary fw-bold section-title">Fundamentos para Empezar</h2>
+            <p class="lead section-description">Antes de comenzar a operar, es importante entender los conceptos básicos del trading.</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Términología clave:</strong> Activo, spread, liquidez, apalancamiento.</li>
+                <li class="list-group-item"><strong>Análisis técnico vs. fundamental:</strong> Diferencias y aplicaciones.</li>
+                <li class="list-group-item"><strong>Tipos de órdenes:</strong> Market, Limit, Stop Loss.</li>
+                <li class="list-group-item"><strong>Gestión de riesgo:</strong> Riesgo/recompensa, tamaño de posición.</li>
+            </ul>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/400x200" alt="Ejemplo de orden" class="img-fluid rounded shadow">
+                    <p class="text-center mt-2">Ejemplo de una orden en una plataforma.</p>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered table-hover shadow">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Análisis Técnico</th>
+                                <th>Análisis Fundamental</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Estudia gráficos de precios.</td>
+                                <td>Analiza datos económicos y financieros.</td>
+                            </tr>
+                            <tr>
+                                <td>Indicadores como RSI, MACD.</td>
+                                <td>Noticias, reportes financieros.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary fw-bold section-title">Módulos del Curso</h2>
+            <ul id="modulos-lista" class="list-group list-group-flush">
+            </ul>
+            <div class="text-center mt-4">
+                <button id="certificado-boton" class="btn btn-success" style="display: none;" onclick="generarCertificado()">Obtener Certificado</button>
+            </div>
+        </section>
+
+        <!-- Sección 4: Cuestionario de Evaluación -->
+        <section>
+            <h2 class="text-primary fw-bold section-title">Pon a Prueba tu Conocimiento</h2>
+            <p class="lead section-description">Responde las siguientes preguntas para evaluar lo que has aprendido.</p>
+            <form id="cuestionario">
+                <div class="mb-4">
+                    <label class="form-label fw-bold">1. ¿Qué es un "Stop Loss"?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta1" id="p1a" value="a">
+                        <label class="form-check-label" for="p1a">a) Una orden para comprar al mejor precio.</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta1" id="p1b" value="b">
+                        <label class="form-check-label" for="p1b">b) Una orden para limitar pérdidas.</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta1" id="p1c" value="c">
+                        <label class="form-check-label" for="p1c">c) Un indicador técnico.</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">2. ¿Cuál es la diferencia entre trading e inversión?</label>
+                    <textarea class="form-control" rows="3" placeholder="Escribe tu respuesta aquí"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">3. Verdadero o Falso: El análisis fundamental estudia gráficos de precios.</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta3" id="p3v" value="verdadero">
+                        <label class="form-check-label" for="p3v">Verdadero</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta3" id="p3f" value="falso">
+                        <label class="form-check-label" for="p3f">Falso</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" onclick="verPuntuacion()">Ver Puntuación</button>
+            </form>
+        </section>
     </main>
+
+    <script>
+        function verPuntuacion() {
+            alert("¡Aprobado! Sigue aprendiendo o repasa la Sección 2.");
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/modulos.js"></script>
 </body>
 </html>

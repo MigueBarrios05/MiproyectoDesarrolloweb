@@ -265,4 +265,88 @@ router.get('/usuario/rol/:id_usuario', (req, res) => {
     );
 });
 
+// Ruta para obtener los módulos de un curso con el progreso del usuario
+router.get('/modulos/:id_curso/:id_usuario', (req, res) => {
+    const { id_curso, id_usuario } = req.params;
+
+    const query = `
+        SELECT m.id_modulo, m.nombre_modulo, m.descripcion, 
+               IFNULL(pm.completado, FALSE) AS completado
+        FROM Modulos m
+        LEFT JOIN ProgresoModulo pm ON m.id_modulo = pm.id_modulo AND pm.id_usuario = ?
+        WHERE m.id_curso = ?`;
+
+    db.query(query, [id_usuario, id_curso], (err, results) => {
+        if (err) {
+            console.error('Error al obtener los módulos:', err.message);
+            res.status(500).json({ error: 'Error al obtener los módulos' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+// Ruta para generar un certificado
+router.post('/certificado/generar', (req, res) => {
+    const { id_usuario, id_curso } = req.body;
+
+    // Verificar si todos los módulos están completados
+    const queryVerificar = `
+        SELECT COUNT(*) AS total_modulos,
+               SUM(CASE WHEN pm.completado = TRUE THEN 1 ELSE 0 END) AS modulos_completados
+        FROM Modulos m
+        LEFT JOIN ProgresoModulo pm ON m.id_modulo = pm.id_modulo AND pm.id_usuario = ?
+        WHERE m.id_curso = ?`;
+
+    db.query(queryVerificar, [id_usuario, id_curso], (err, results) => {
+        if (err) {
+            console.error('Error al verificar los módulos completados:', err.message);
+            res.status(500).json({ error: 'Error al verificar los módulos completados' });
+        } else {
+            const { total_modulos, modulos_completados } = results[0];
+            if (total_modulos === modulos_completados) {
+                // Generar el enlace del certificado
+                const enlace_certificado = `http://localhost:3000/certificados/${id_usuario}_${id_curso}.pdf`;
+
+                // Guardar el certificado en la base de datos
+                const queryInsertar = `
+                    INSERT INTO Certificado (id_usuario, id_curso, enlace_certificado)
+                    VALUES (?, ?, ?)
+                    ON DUPLICATE KEY UPDATE enlace_certificado = VALUES(enlace_certificado)`;
+
+                db.query(queryInsertar, [id_usuario, id_curso, enlace_certificado], (err, result) => {
+                    if (err) {
+                        console.error('Error al guardar el certificado:', err.message);
+                        res.status(500).json({ error: 'Error al guardar el certificado' });
+                    } else {
+                        res.status(201).json({ message: 'Certificado generado', enlace_certificado });
+                    }
+                });
+            } else {
+                res.status(400).json({ error: 'No se han completado todos los módulos' });
+            }
+        }
+    });
+});
+
+// Ruta para obtener los certificados de un usuario
+router.get('/certificados/:id_usuario', (req, res) => {
+    const { id_usuario } = req.params;
+
+    const query = `
+        SELECT c.id_curso, cu.nombre_curso, c.enlace_certificado
+        FROM Certificado c
+        JOIN Curso cu ON c.id_curso = cu.id_curso
+        WHERE c.id_usuario = ?`;
+
+    db.query(query, [id_usuario], (err, results) => {
+        if (err) {
+            console.error('Error al obtener los certificados:', err.message);
+            res.status(500).json({ error: 'Error al obtener los certificados' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
 module.exports = router;

@@ -268,6 +268,26 @@ function cargarCursos() {
         .catch(error => console.error('Error al cargar los cursos:', error));
 }
 
+function cargarCertificados() {
+    const id_usuario = localStorage.getItem('id_usuario');
+
+    fetch(`http://localhost:3000/api/certificados/${id_usuario}`)
+        .then(response => response.json())
+        .then(certificados => {
+            const certificadosContainer = document.getElementById('certificados-container');
+            certificados.forEach(certificado => {
+                const div = document.createElement('div');
+                div.className = 'mb-3';
+                div.innerHTML = `
+                    <h5>${certificado.nombre_curso}</h5>
+                    <a href="${certificado.enlace_certificado}" target="_blank" class="btn btn-success">Ver Certificado</a>
+                `;
+                certificadosContainer.appendChild(div);
+            });
+        })
+        .catch(error => console.error('Error al cargar los certificados:', error));
+}
+
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarCursos);
 
