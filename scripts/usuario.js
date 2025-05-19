@@ -1,187 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-    cargarCursos(); // Cargar los cursos disponibles
-    cargarCursosInscritos(); // Cargar los cursos inscritos del usuario
+    const nombre = localStorage.getItem('nombre') || 'Usuario';
+    document.getElementById('bienvenida').textContent = `Bienvenido, ${nombre}`;
+    cargarCursos();
+    cargarCursosInscritos();
+    cargarCertificados();
 });
 
-console.log(localStorage.getItem('id_usuario'));
-
-function cargarCursosPagados() {
-    const email = localStorage.getItem('email'); // Obtener el correo del usuario desde el almacenamiento local
-
-    fetch(`http://localhost:3000/api/cursos-pagados/${email}`)
+// Cargar cursos disponibles desde el backend
+function cargarCursos() {
+    fetch('http://localhost:3000/api/cursos')
         .then(response => response.json())
-        .then(data => {
-            const cursosLista = document.getElementById('cursos-lista');
-            cursosLista.innerHTML = '';
-            if (data.length === 0) {
-                cursosLista.innerHTML = '<tr><td colspan="3">No tienes cursos pagados.</td></tr>';
-            } else {
-                data.forEach(curso => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+        .then(cursos => {
+            const cursosDisponiblesLista = document.getElementById('cursos-disponibles-lista');
+            cursosDisponiblesLista.innerHTML = '';
+            cursos.forEach(curso => {
+                const fila = `
+                    <tr>
                         <td>${curso.nombre_curso}</td>
                         <td>${curso.descripcion}</td>
                         <td>
-                            <button onclick="accederCurso(${curso.id_curso}, '${curso.codigo_pago}')">Acceder</button>
+                            <button class="btn btn-success rounded-pill" onclick="inscribirCurso(${curso.id_curso})">Inscribirse</button>
                         </td>
-                    `;
-                    cursosLista.appendChild(row);
-                });
-            }
-        })
-        .catch(error => console.error('Error al cargar los cursos pagados:', error));
-}
-
-function cargarPerfil() {
-    const email = localStorage.getItem('email'); // Obtener el correo del usuario desde el almacenamiento local
-
-    fetch(`http://localhost:3000/api/perfil/${email}`)
-        .then(response => response.json())
-        .then(data => {
-            const cursosLista = document.getElementById('cursos-lista');
-            cursosLista.innerHTML = '';
-            if (data.length === 0) {
-                cursosLista.innerHTML = '<tr><td colspan="3">No tienes cursos pagados.</td></tr>';
-            } else {
-                data.forEach(curso => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${curso.nombre_curso}</td>
-                        <td>${curso.descripcion}</td>
-                        <td>
-                            <button onclick="accederCurso(${curso.id_curso}, '${curso.codigo_pago}')">Acceder</button>
-                        </td>
-                    `;
-                    cursosLista.appendChild(row);
-                });
-            }
-        })
-        .catch(error => console.error('Error al cargar el perfil:', error));
-}
-
-function cerrarSesion() {
-    localStorage.removeItem('email'); // Eliminar el correo del almacenamiento local
-    alert('Sesión cerrada correctamente');
-    window.location.href = 'index.html'; // Redirigir al usuario a la página de inicio
-}
-
-function actualizarPerfil(event) {
-    event.preventDefault();
-
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-
-    fetch('http://localhost:3000/api/perfil', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email })
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert('Perfil actualizado correctamente');
-        })
-        .catch(error => {
-            console.error('Error al actualizar el perfil:', error);
-            alert('Hubo un error al actualizar el perfil.');
-        });
-}
-
-function eliminarPerfil() {
-    const email = localStorage.getItem('email'); // Obtener el correo del usuario desde el almacenamiento local
-
-    if (confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.')) {
-        fetch(`http://localhost:3000/api/perfil/${email}`, {
-            method: 'DELETE'
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert('Perfil eliminado correctamente');
-                cerrarSesion(); // Cerrar sesión después de eliminar el perfil
-            })
-            .catch(error => {
-                console.error('Error al eliminar el perfil:', error);
-                alert('Hubo un error al eliminar el perfil.');
+                    </tr>
+                `;
+                cursosDisponiblesLista.innerHTML += fila;
             });
-    }
-}
-
-function accederCurso(id_curso, codigo_pago) {
-    const codigoIngresado = prompt('Por favor, ingresa el código de pago para este curso:');
-
-    if (codigoIngresado === codigo_pago) {
-        alert('Código válido. Accediendo al curso...');
-        window.location.href = `/cursos/${id_curso}.html`; // Redirigir al curso
-    } else {
-        alert('Código inválido. Por favor, verifica e intenta nuevamente.');
-    }
-}
-
-function inscribirCurso(id_curso) {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID del usuario desde el almacenamiento local
-
-    if (!id_usuario) {
-        alert('Error: No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.');
-        return;
-    }
-
-    // Verificar el rol del usuario
-    fetch(`http://localhost:3000/api/usuario/rol/${id_usuario}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.rol !== 'estudiante') { // Cambiar "usuario" por "estudiante"
-                alert('Error: Solo los usuarios con rol de "estudiante" pueden inscribirse en cursos.');
-                return;
-            }
-
-            // Si el rol es válido, proceder con la inscripción
-            fetch('http://localhost:3000/api/inscribir', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_usuario, id_curso })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message); // Mostrar el mensaje del backend
-                        cargarCursosInscritos(); // Actualizar la lista de cursos inscritos
-                    } else if (data.error) {
-                        alert(`Error: ${data.error}`); // Mostrar el error del backend
-                    } else {
-                        alert('Hubo un problema al inscribir al curso.');
-                    }
-                })
-                .catch(error => console.error('Error al inscribir al curso:', error));
         })
-        .catch(error => console.error('Error al verificar el rol del usuario:', error));
+        .catch(error => console.error('Error al cargar los cursos:', error));
 }
 
-function inscribirUsuario(nombre, descripcion, enlace) {
-    const tablaCursosInscritos = document.getElementById('cursos-inscritos-lista');
-
-    // Crear una nueva fila para el curso inscrito
-    const nuevaFila = document.createElement('tr');
-    nuevaFila.innerHTML = `
-        <td>${nombre}</td>
-        <td>${descripcion}</td>
-        <td><a href="${enlace}" class="btn btn-primary rounded-pill">Acceder</a></td>
-    `;
-
-    // Agregar la nueva fila a la tabla de cursos inscritos
-    tablaCursosInscritos.appendChild(nuevaFila);
-
-    // Mostrar un mensaje de éxito
-    alert(`Te has inscrito exitosamente en el curso: ${nombre}`);
-}
-
+// Cargar cursos inscritos del usuario
 function cargarCursosInscritos() {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID del usuario desde el almacenamiento local
-
+    const id_usuario = localStorage.getItem('id_usuario');
     fetch(`http://localhost:3000/api/cursos-inscritos/${id_usuario}`)
         .then(response => response.json())
         .then(data => {
             const cursosLista = document.getElementById('cursos-inscritos-lista');
-            cursosLista.innerHTML = ''; // Limpiar la tabla antes de llenarla
-
+            cursosLista.innerHTML = '';
             data.forEach(curso => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -197,130 +52,93 @@ function cargarCursosInscritos() {
         .catch(error => console.error('Error al cargar cursos inscritos:', error));
 }
 
-function iniciarSesion(email, password) {
-    fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.id_usuario) {
-                localStorage.setItem('id_usuario', data.id_usuario); // Guardar el ID del usuario
-                localStorage.setItem('rol', data.rol); // Guardar el rol del usuario
-                alert('Inicio de sesión exitoso');
-                window.location.href = 'Usuario.html'; // Redirigir al perfil del usuario
-            } else {
-                alert('Error: ' + data.error);
-            }
-        })
-        .catch(error => console.error('Error al iniciar sesión:', error));
-}
-
-function obtenerRolUsuario() {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID del usuario desde el almacenamiento local
-
+// Inscribir al usuario en un curso
+function inscribirCurso(id_curso) {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (!id_usuario) {
+        alert('Error: No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.');
+        return;
+    }
     fetch(`http://localhost:3000/api/usuario/rol/${id_usuario}`)
         .then(response => response.json())
         .then(data => {
-            if (data.rol === 'admin') {
-                mostrarContenidoAdmin();
-            } else if (data.rol === 'estudiante') { // Cambiar "usuario" por "estudiante"
-                mostrarContenidoEstudiante();
-            } else {
-                alert('Error: Rol no reconocido.');
+            if (data.rol !== 'estudiante') {
+                alert('Error: Solo los usuarios con rol de "estudiante" pueden inscribirse en cursos.');
+                return;
             }
+            fetch('http://localhost:3000/api/inscribir', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_usuario, id_curso })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        cargarCursosInscritos();
+                    } else if (data.error) {
+                        alert(`Error: ${data.error}`);
+                    } else {
+                        alert('Hubo un problema al inscribir al curso.');
+                    }
+                })
+                .catch(error => console.error('Error al inscribir al curso:', error));
         })
-        .catch(error => console.error('Error al obtener el rol del usuario:', error));
+        .catch(error => console.error('Error al verificar el rol del usuario:', error));
 }
 
-function mostrarContenidoAdmin() {
-    document.getElementById('inscripcion-cursos').style.display = 'none'; // Ocultar sección de inscripción
-    document.getElementById('cursos-disponibles').style.display = 'none'; // Ocultar cursos disponibles
+// Acceder a un curso (con código de pago)
+function accederCurso(id_curso, codigo_pago) {
+    const codigoIngresado = prompt('Por favor, ingresa el código de pago para este curso:');
+    if (codigoIngresado === codigo_pago) {
+        alert('Código válido. Accediendo al curso...');
+        window.location.href = `/cursos/${id_curso}.html`;
+    } else {
+        alert('Código inválido. Por favor, verifica e intenta nuevamente.');
+    }
 }
 
-function mostrarContenidoEstudiante() {
-    document.getElementById('inscripcion-cursos').style.display = 'block'; // Mostrar inscripción
-    document.getElementById('cursos-disponibles').style.display = 'block'; // Mostrar cursos disponibles
-}
-
-// Función para cargar los cursos desde un archivo JSON
-function cargarCursos() {
-    fetch('http://localhost:3000/api/cursos') // Endpoint para obtener los cursos
-        .then(response => response.json())
-        .then(cursos => {
-            const cursosDisponiblesLista = document.getElementById('cursos-disponibles-lista');
-            cursosDisponiblesLista.innerHTML = ''; // Limpiar la tabla
-
-            cursos.forEach(curso => {
-                const fila = `
-                    <tr>
-                        <td>${curso.nombre}</td>
-                        <td>${curso.descripcion}</td>
-                        <td>
-                            <button class="btn btn-success rounded-pill" onclick="inscribirCurso(${curso.id_curso})">Inscribirse</button>
-                        </td>
-                    </tr>
-                `;
-                cursosDisponiblesLista.innerHTML += fila;
-            });
-        })
-        .catch(error => console.error('Error al cargar los cursos:', error));
-}
-
-function cargarCertificados() {
-    const id_usuario = localStorage.getItem('id_usuario');
-
-    fetch(`http://localhost:3000/api/certificados/${id_usuario}`)
-        .then(response => response.json())
-        .then(certificados => {
-            const certificadosContainer = document.getElementById('certificados-container');
-            certificados.forEach(certificado => {
-                const div = document.createElement('div');
-                div.className = 'mb-3';
-                div.innerHTML = `
-                    <h5>${certificado.nombre_curso}</h5>
-                    <a href="${certificado.enlace_certificado}" target="_blank" class="btn btn-success">Ver Certificado</a>
-                `;
-                certificadosContainer.appendChild(div);
-            });
-        })
-        .catch(error => console.error('Error al cargar los certificados:', error));
-}
-
-// Llamar a la función al cargar la página
-document.addEventListener('DOMContentLoaded', cargarCursos);
-
+// Actualizar perfil del usuario
 document.getElementById('perfilForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    event.preventDefault();
+    const id_usuario = localStorage.getItem('id_usuario');
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
 
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID del usuario desde el almacenamiento local
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const datosActualizar = { id_usuario };
+    if (nombre) datosActualizar.nombre = nombre;
+    if (email) datosActualizar.email = email;
+    if (password) datosActualizar.password = password;
+
+    if (!nombre && !email && !password) {
+        alert('Debes llenar al menos un campo para actualizar.');
+        return;
+    }
 
     fetch('http://localhost:3000/api/usuario', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuario, nombre, email, password: password || null }) // Si no se cambia la contraseña, se envía null
+        body: JSON.stringify(datosActualizar)
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Error al actualizar el perfil');
-        }
+        if (!response.ok) throw new Error('Error al actualizar el perfil');
         return response.json();
     })
     .then(data => {
-        alert(data.message); // Mostrar mensaje de éxito
-        // Opcional: Recargar la página o actualizar la interfaz
+        alert(data.message);
+        if (nombre) {
+            localStorage.setItem('nombre', nombre);
+            document.getElementById('bienvenida').textContent = `Bienvenido, ${nombre}`;
+        }
     })
     .catch(error => console.error('Error al actualizar el perfil:', error));
 });
 
+// Eliminar perfil del usuario
 document.getElementById('eliminarPerfilButton').addEventListener('click', function () {
     if (confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.')) {
         const id_usuario = localStorage.getItem('id_usuario');
-
         fetch('http://localhost:3000/api/usuario', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -329,9 +147,67 @@ document.getElementById('eliminarPerfilButton').addEventListener('click', functi
         .then(response => response.json())
         .then(data => {
             alert(data.message);
+            localStorage.clear();
             window.location.href = 'registro.html';
         })
         .catch(error => console.error('Error al eliminar el perfil:', error));
     }
-});
+}
+);
+
+// Cerrar sesión
+function cerrarSesion() {
+    localStorage.removeItem('email');
+    localStorage.removeItem('id_usuario');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('rol');
+    alert('Sesión cerrada correctamente');
+    window.location.href = 'index.html';
+}
+
+// Cargar certificados del usuario
+function cargarCertificados() {
+    const id_usuario = localStorage.getItem('id_usuario'); // Obtén el ID del usuario desde localStorage
+
+    if (!id_usuario) {
+        console.error("No se encontró el ID del usuario en localStorage.");
+        return;
+    }
+
+    fetch(`http://localhost:3000/api/certificados/${id_usuario}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los certificados');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const certificadosLista = document.getElementById('certificados-lista');
+            certificadosLista.innerHTML = ''; // Limpia el contenedor antes de llenarlo
+
+            if (data.length === 0) {
+                certificadosLista.innerHTML = '<p>No tienes certificados generados.</p>';
+            } else {
+                data.forEach(certificado => {
+                    const item = document.createElement('div');
+                    item.classList.add('certificado-item');
+                    item.innerHTML = `
+                        <h4>${certificado.nombre_curso}</h4>
+                        <p>Fecha de emisión: ${new Date(certificado.fecha_emision).toLocaleDateString()}</p>
+                        <a href="certificado.html?id_curso=${certificado.id_curso}&id_usuario=${id_usuario}" 
+                           class="btn btn-primary rounded-pill" target="_blank">
+                           Ver Certificado
+                        </a>
+                    `;
+                    certificadosLista.appendChild(item);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar los certificados:', error);
+        });
+}
+
+// Llama a la función al cargar la página del perfil
+document.addEventListener('DOMContentLoaded', cargarCertificados);
 

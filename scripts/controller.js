@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.id_usuario) {
                     localStorage.setItem('id_usuario', data.id_usuario);
-                    localStorage.setItem('nombre_usuario', data.nombre);
+                    localStorage.setItem('nombre', data.nombre); // data.nombre debe venir del backend
                     localStorage.setItem('rol_usuario', data.rol);
 
                     if (data.rol === 'admin') {
@@ -175,8 +175,7 @@ function cargarUsuarios() {
                 row.innerHTML = `
                     <td>${usuario.nombre}</td>
                     <td>${usuario.correo}</td>
-                    <td>${usuario.rol}</td>
-                    <td>${usuario.contrasena_hash}</td>
+                    <td>${usuario.rol}</td>                    
                     <td>
                         <button onclick="editarUsuario(${usuario.id_usuario})">Editar</button>
                         <button onclick="eliminarUsuario(${usuario.id_usuario})">Eliminar</button>
@@ -267,15 +266,23 @@ function editarCurso(id) {
 
 function eliminarCurso(id) {
     if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
-        fetch(`http://localhost:3000/api/cursos/${id}`, {
+        fetch(`http://localhost:3000/api/cursos/${id}`, { // Cambia la URL si es necesario
             method: 'DELETE'
         })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                cargarCursos(); // Actualizar la lista de cursos
-            })
-            .catch(error => console.error('Error al eliminar el curso:', error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al eliminar el curso');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message || 'Curso eliminado correctamente');
+            cargarCursos(); // Actualiza la lista de cursos después de eliminar
+        })
+        .catch(error => {
+            console.error('Error al eliminar el curso:', error);
+            alert('Hubo un error al eliminar el curso.');
+        });
     }
 }
 
@@ -340,7 +347,6 @@ function cargarEstudiantes() {
                     <td>${estudiante.id_usuario}</td>
                     <td>${estudiante.nombre}</td>
                     <td>${estudiante.correo}</td>
-                    <td>${estudiante.contrasena_hash}</td>
                     <td>
                         <button onclick="editarEstudiante(${estudiante.id_usuario})">Editar</button>
                         <button onclick="eliminarEstudiante(${estudiante.id_usuario})">Eliminar</button>

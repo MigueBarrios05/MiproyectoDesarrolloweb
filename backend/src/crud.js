@@ -201,32 +201,37 @@ router.delete('/estudiantes/:id', (req, res) => {
 // Ruta para actualizar el perfil del usuario
 router.put('/usuario', async (req, res) => {
     const { id_usuario, nombre, email, password } = req.body;
+    if (!id_usuario) return res.status(400).json({ message: 'ID requerido' });
 
-    try {
-        let query = 'UPDATE Usuario SET nombre = ?, correo = ?';
-        const params = [nombre, email];
+    let campos = [];
+    let valores = [];
 
-        if (password) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            query += ', contrasena_hash = ?';
-            params.push(hashedPassword);
-        }
-
-        query += ' WHERE id_usuario = ?';
-        params.push(id_usuario);
-
-        db.query(query, params, (err, result) => {
-            if (err) {
-                console.error('Error al actualizar perfil:', err.message);
-                res.status(500).json({ error: err.message });
-            } else {
-                res.json({ message: 'Perfil actualizado correctamente' });
-            }
-        });
-    } catch (error) {
-        console.error('Error al actualizar perfil:', error.message);
-        res.status(500).json({ error: 'Error al actualizar perfil.' });
+    if (nombre) {
+        campos.push('nombre = ?');
+        valores.push(nombre);
     }
+    if (email) {
+        campos.push('correo = ?');
+        valores.push(email);
+    }
+    if (password) {
+        // Hashear la contraseña antes de guardar
+        const hashedPassword = await bcrypt.hash(password, 10);
+        campos.push('contrasena_hash = ?');
+        valores.push(hashedPassword);
+    }
+
+    if (campos.length === 0) {
+        return res.status(400).json({ message: 'No hay campos para actualizar' });
+    }
+
+    valores.push(id_usuario);
+
+    const sql = `UPDATE Usuario SET ${campos.join(', ')} WHERE id_usuario = ?`;
+    db.query(sql, valores, (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error en la base de datos' });
+        res.json({ message: 'Perfil actualizado correctamente' });
+    });
 });
 
 // Ruta para eliminar el perfil del usuario
@@ -290,42 +295,21 @@ router.get('/modulos/:id_curso/:id_usuario', (req, res) => {
 router.post('/certificado/generar', (req, res) => {
     const { id_usuario, id_curso } = req.body;
 
-    // Verificar si todos los módulos están completados
-    const queryVerificar = `
-        SELECT COUNT(*) AS total_modulos,
-               SUM(CASE WHEN pm.completado = TRUE THEN 1 ELSE 0 END) AS modulos_completados
-        FROM Modulos m
-        LEFT JOIN ProgresoModulo pm ON m.id_modulo = pm.id_modulo AND pm.id_usuario = ?
-        WHERE m.id_curso = ?`;
+    if (!id_usuario || !id_curso) {
+        return res.status(400).json({ error: 'Faltan datos necesarios.' });
+    }
 
-    db.query(queryVerificar, [id_usuario, id_curso], (err, results) => {
+    const query = `
+        INSERT INTO Certificado (id_usuario, id_curso, fecha_emision)
+        VALUES (?, ?, NOW())
+    `;
+    db.query(query, [id_usuario, id_curso], (err, result) => {
         if (err) {
-            console.error('Error al verificar los módulos completados:', err.message);
-            res.status(500).json({ error: 'Error al verificar los módulos completados' });
-        } else {
-            const { total_modulos, modulos_completados } = results[0];
-            if (total_modulos === modulos_completados) {
-                // Generar el enlace del certificado
-                const enlace_certificado = `http://localhost:3000/certificados/${id_usuario}_${id_curso}.pdf`;
-
-                // Guardar el certificado en la base de datos
-                const queryInsertar = `
-                    INSERT INTO Certificado (id_usuario, id_curso, enlace_certificado)
-                    VALUES (?, ?, ?)
-                    ON DUPLICATE KEY UPDATE enlace_certificado = VALUES(enlace_certificado)`;
-
-                db.query(queryInsertar, [id_usuario, id_curso, enlace_certificado], (err, result) => {
-                    if (err) {
-                        console.error('Error al guardar el certificado:', err.message);
-                        res.status(500).json({ error: 'Error al guardar el certificado' });
-                    } else {
-                        res.status(201).json({ message: 'Certificado generado', enlace_certificado });
-                    }
-                });
-            } else {
-                res.status(400).json({ error: 'No se han completado todos los módulos' });
-            }
+            console.error('Error al insertar certificado:', err);
+            return res.status(500).json({ error: 'Error al generar el certificado.' });
         }
+
+        res.json({ message: 'Certificado generado exitosamente.', id_certificado: result.insertId });
     });
 });
 
@@ -334,18 +318,36 @@ router.get('/certificados/:id_usuario', (req, res) => {
     const { id_usuario } = req.params;
 
     const query = `
-        SELECT c.id_curso, cu.nombre_curso, c.enlace_certificado
-        FROM Certificado c
-        JOIN Curso cu ON c.id_curso = cu.id_curso
-        WHERE c.id_usuario = ?`;
-
+        SELECT Certificado.id_curso, Curso.nombre_curso, Certificado.fecha_emision
+        FROM Certificado
+        JOIN Curso ON Certificado.id_curso = Curso.id_curso
+        WHERE Certificado.id_usuario = ?
+    `;
     db.query(query, [id_usuario], (err, results) => {
         if (err) {
-            console.error('Error al obtener los certificados:', err.message);
-            res.status(500).json({ error: 'Error al obtener los certificados' });
-        } else {
-            res.json(results);
+            console.error('Error al obtener los certificados:', err);
+            return res.status(500).json({ error: 'Error al obtener los certificados.' });
         }
+        res.json(results);
+    });
+});
+
+// Ruta para eliminar un curso
+router.delete('/cursos/:id_curso', (req, res) => {
+    const { id_curso } = req.params;
+
+    const query = `DELETE FROM Curso WHERE id_curso = ?`;
+    db.query(query, [id_curso], (err, result) => {
+        if (err) {
+            console.error('Error al eliminar el curso:', err);
+            return res.status(500).json({ error: 'Error al eliminar el curso.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Curso no encontrado.' });
+        }
+
+        res.json({ message: 'Curso eliminado exitosamente.' });
     });
 });
 
