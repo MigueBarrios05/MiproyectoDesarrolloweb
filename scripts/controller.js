@@ -235,7 +235,7 @@ function cargarCursos() {
                     <td>
                         <button onclick="editarCurso(${curso.id_curso})">Editar</button>
                         <button onclick="eliminarCurso(${curso.id_curso})">Eliminar</button>
-                        <button onclick="inscribirCurso(${curso.id_curso})">Inscribir</button>
+                        
                     </td>
                 `;
                 cursosLista.appendChild(row);
@@ -247,20 +247,34 @@ function cargarCursos() {
 function editarCurso(id) {
     const nuevoNombre = prompt('Ingrese el nuevo nombre del curso:');
     const nuevaDescripcion = prompt('Ingrese la nueva descripción del curso:');
-    const nuevoEnlace = prompt('Ingrese el nuevo enlace del curso (basico.html, intermedio.html, avanzado.html):');
+    const nuevoEnlace = prompt('Ingrese el nuevo enlace del curso (por ejemplo: basico.html, intermedio.html, avanzado.html):');
 
     if (nuevoNombre && nuevaDescripcion && nuevoEnlace) {
         fetch(`http://localhost:3000/api/cursos/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre_curso: nuevoNombre, descripcion: nuevaDescripcion, enlace: nuevoEnlace })
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                cargarCursos(); // Actualizar la lista de cursos
+            body: JSON.stringify({
+                nombre_curso: nuevoNombre,
+                descripcion: nuevaDescripcion,
+                enlace: nuevoEnlace
             })
-            .catch(error => console.error('Error al editar el curso:', error));
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al editar el curso');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message || 'Curso editado correctamente');
+            cargarCursos(); // Recargar la lista de cursos
+        })
+        .catch(error => {
+            console.error('Error al editar el curso:', error);
+            alert('Hubo un error al editar el curso.');
+        });
+    } else {
+        alert('Todos los campos son obligatorios para editar el curso.');
     }
 }
 

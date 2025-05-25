@@ -4,19 +4,406 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Curso Avanzado</title>
 </head>
 <body>
-    <header>
-        <h1>Curso Avanzado</h1>
+    <header class="bg-primary text-white text-center py-4">
+        <h1 class="display-4">Curso Avanzado</h1>
     </header>
-    <main>
-        <p>Bienvenido al Curso Avanzado. Aquí encontrarás contenido especializado para convertirte en un experto.</p>
-        <ul>
-            <li>Lección 1: Técnicas avanzadas</li>
-            <li>Lección 2: Resolución de problemas complejos</li>
-            <li>Lección 3: Proyecto final</li>
-        </ul>
+    <main class="container my-5">
+        <p class="lead text-center">Bienvenido al Curso Avanzado. Aquí encontrarás contenido especializado para convertirte en un experto.</p>
+
+        <!-- Módulo 1 -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-info text-white">
+                <h2 class="h4">🧩 Módulo 1: Análisis Técnico Avanzado</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Ondas de Elliott: teoría y aplicación</li>
+                    <li class="list-group-item">Indicadores personalizados y combinaciones efectivas</li>
+                    <li class="list-group-item">Divergencias en RSI y MACD</li>
+                    <li class="list-group-item">Fractales y niveles de Fibonacci extendidos</li>
+                    <li class="list-group-item">Market Profile y Order Flow básico</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Módulo 2 -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-success text-white">
+                <h2 class="h4">🧠 Módulo 2: Psicología del Trading Profesional</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Neurociencia y toma de decisiones bajo presión</li>
+                    <li class="list-group-item">Control emocional en entornos de alta volatilidad</li>
+                    <li class="list-group-item">Creación de un diario psicológico de trading</li>
+                    <li class="list-group-item">Técnicas para mantener disciplina y consistencia</li>
+                    <li class="list-group-item">Sesgos cognitivos comunes en traders experimentados</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Módulo 3 -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-warning text-dark">
+                <h2 class="h4">📈 Módulo 3: Análisis Fundamental y Macroeconomía</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Interpretación de datos macroeconómicos (PIB, IPC, tasas de interés)</li>
+                    <li class="list-group-item">Impacto de decisiones de bancos centrales (FED, BCE, etc.)</li>
+                    <li class="list-group-item">Geopolítica y su influencia en los mercados</li>
+                    <li class="list-group-item">Calendario económico avanzado</li>
+                    <li class="list-group-item">Cómo afectan los ciclos económicos al mercado financiero</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Módulo 4 -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-danger text-white">
+                <h2 class="h4">📊 Módulo 4: Trading Algorítmico e Indicadores Personalizados</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Conceptos básicos de programación en Pine Script y MQL4/5</li>
+                    <li class="list-group-item">Cómo crear un robot (EA) básico</li>
+                    <li class="list-group-item">Backtesting de estrategias</li>
+                    <li class="list-group-item">Optimización de indicadores</li>
+                    <li class="list-group-item">Automatización de alertas y entradas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Módulo 5 -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-secondary text-white">
+                <h2 class="h4">🧮 Módulo 5: Gestión Avanzada de Riesgo</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Modelos de gestión basados en Kelly y riesgo fijo por operación</li>
+                    <li class="list-group-item">Ajuste del tamaño de posición dinámico</li>
+                    <li class="list-group-item">Control de exposición por sector y activo</li>
+                    <li class="list-group-item">Diversificación por correlaciones negativas</li>
+                    <li class="list-group-item">Uso de stop-loss adaptativo y trailing stops</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Evaluación Final -->
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-dark text-white">
+                <h2 class="h4">✅ Evaluación Final – Curso Avanzado de Trading</h2>
+            </div>
+            <div class="card-body">
+                <form id="evaluacionFinal">
+                    <ol class="list-group list-group-numbered">
+    <li class="list-group-item">
+        ¿Qué es el trading algorítmico?
+        <div>
+            <input type="radio" name="p1" value="A"> A) Operar únicamente con criptomonedas<br>
+            <input type="radio" name="p1" value="B"> B) Uso de algoritmos para ejecutar operaciones automáticamente<br>
+            <input type="radio" name="p1" value="C"> C) Comprar acciones a largo plazo<br>
+            <input type="radio" name="p1" value="D"> D) Hacer scalping manual
+        </div>
+    </li>
+    <li class="list-group-item">
+        El backtesting permite evaluar una estrategia con datos históricos.
+        <div>
+            <input type="radio" name="p2" value="V"> Verdadero<br>
+            <input type="radio" name="p2" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué mide el indicador ATR (Average True Range)?
+        <div>
+            <input type="radio" name="p3" value="A"> A) Tendencia<br>
+            <input type="radio" name="p3" value="B"> B) Volumen<br>
+            <input type="radio" name="p3" value="C"> C) Volatilidad<br>
+            <input type="radio" name="p3" value="D"> D) Capital disponible
+        </div>
+    </li>
+    <li class="list-group-item">
+        El apalancamiento reduce el riesgo en una operación.
+        <div>
+            <input type="radio" name="p4" value="V"> Verdadero<br>
+            <input type="radio" name="p4" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué tipo de órdenes se usan comúnmente en estrategias automatizadas?
+        <div>
+            <input type="radio" name="p5" value="A"> A) Orden de voz<br>
+            <input type="radio" name="p5" value="B"> B) Orden limitada y orden stop<br>
+            <input type="radio" name="p5" value="C"> C) Orden bancaria<br>
+            <input type="radio" name="p5" value="D"> D) Orden social
+        </div>
+    </li>
+    <li class="list-group-item">
+        Una divergencia entre el precio y un oscilador puede anticipar un cambio de tendencia.
+        <div>
+            <input type="radio" name="p6" value="V"> Verdadero<br>
+            <input type="radio" name="p6" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Cuál es el propósito del análisis cuantitativo?
+        <div>
+            <input type="radio" name="p7" value="A"> A) Medir emociones de los inversores<br>
+            <input type="radio" name="p7" value="B"> B) Analizar noticias económicas<br>
+            <input type="radio" name="p7" value="C"> C) Evaluar datos numéricos para tomar decisiones objetivas<br>
+            <input type="radio" name="p7" value="D"> D) Usar gráficos de líneas exclusivamente
+        </div>
+    </li>
+    <li class="list-group-item">
+        El indicador RSI se utiliza para identificar sobrecompra o sobreventa.
+        <div>
+            <input type="radio" name="p8" value="V"> Verdadero<br>
+            <input type="radio" name="p8" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué representa una vela con una mecha larga en la parte superior?
+        <div>
+            <input type="radio" name="p9" value="A"> A) Presión de compra<br>
+            <input type="radio" name="p9" value="B"> B) Rechazo del precio en niveles altos<br>
+            <input type="radio" name="p9" value="C"> C) Volumen bajo<br>
+            <input type="radio" name="p9" value="D"> D) Confirmación de ruptura
+        </div>
+    </li>
+    <li class="list-group-item">
+        Una correlación negativa entre activos indica que tienden a moverse en la misma dirección.
+        <div>
+            <input type="radio" name="p10" value="V"> Verdadero<br>
+            <input type="radio" name="p10" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Cuál es el principal riesgo de una mala gestión del capital?
+        <div>
+            <input type="radio" name="p11" value="A"> A) Mayor rendimiento<br>
+            <input type="radio" name="p11" value="B"> B) Pérdidas significativas e insostenibles<br>
+            <input type="radio" name="p11" value="C"> C) Ganancias constantes<br>
+            <input type="radio" name="p11" value="D"> D) Comisiones elevadas
+        </div>
+    </li>
+    <li class="list-group-item">
+        Las Bandas de Bollinger se basan en una media móvil y desviación estándar.
+        <div>
+            <input type="radio" name="p12" value="V"> Verdadero<br>
+            <input type="radio" name="p12" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Cuál es una característica del trading de alta frecuencia (HFT)?
+        <div>
+            <input type="radio" name="p13" value="A"> A) Operaciones ejecutadas en milisegundos mediante algoritmos<br>
+            <input type="radio" name="p13" value="B"> B) Trading con noticias económicas<br>
+            <input type="radio" name="p13" value="C"> C) Inversión a largo plazo<br>
+            <input type="radio" name="p13" value="D"> D) Análisis fundamental
+        </div>
+    </li>
+    <li class="list-group-item">
+        El drawdown mide el volumen de operaciones ganadoras.
+        <div>
+            <input type="radio" name="p14" value="V"> Verdadero<br>
+            <input type="radio" name="p14" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué indica un cruce dorado entre medias móviles?
+        <div>
+            <input type="radio" name="p15" value="A"> A) Momento para vender<br>
+            <input type="radio" name="p15" value="B"> B) Posible inicio de una tendencia alcista<br>
+            <input type="radio" name="p15" value="C"> C) Alta volatilidad<br>
+            <input type="radio" name="p15" value="D"> D) Zona de consolidación
+        </div>
+    </li>
+    <li class="list-group-item">
+        El volumen nunca influye en la validez de una ruptura de soporte o resistencia.
+        <div>
+            <input type="radio" name="p16" value="V"> Verdadero<br>
+            <input type="radio" name="p16" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué herramienta se usa para evaluar la relación riesgo/beneficio?
+        <div>
+            <input type="radio" name="p17" value="A"> A) MACD<br>
+            <input type="radio" name="p17" value="B"> B) Fibonacci<br>
+            <input type="radio" name="p17" value="C"> C) Ratio R/R o riesgo-recompensa<br>
+            <input type="radio" name="p17" value="D"> D) Stop dinámico
+        </div>
+    </li>
+    <li class="list-group-item">
+        Las velas doji representan indecisión en el mercado.
+        <div>
+            <input type="radio" name="p18" value="V"> Verdadero<br>
+            <input type="radio" name="p18" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Cuál es la principal función de un trailing stop?
+        <div>
+            <input type="radio" name="p19" value="A"> A) Proteger ganancias ajustando el stop a medida que sube el precio<br>
+            <input type="radio" name="p19" value="B"> B) Aumentar el apalancamiento<br>
+            <input type="radio" name="p19" value="C"> C) Eliminar el riesgo<br>
+            <input type="radio" name="p19" value="D"> D) Detectar noticias económicas
+        </div>
+    </li>
+    <li class="list-group-item">
+        El análisis fundamental se basa exclusivamente en patrones gráficos.
+        <div>
+            <input type="radio" name="p20" value="V"> Verdadero<br>
+            <input type="radio" name="p20" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué es el "slippage" en trading?
+        <div>
+            <input type="radio" name="p21" value="A"> A) Operaciones programadas automáticamente<br>
+            <input type="radio" name="p21" value="B"> B) Diferencia entre el precio esperado y el precio real de ejecución<br>
+            <input type="radio" name="p21" value="C"> C) Pérdida máxima diaria permitida<br>
+            <input type="radio" name="p21" value="D"> D) Tipo de spread fijo
+        </div>
+    </li>
+    <li class="list-group-item">
+        El análisis técnico solo puede aplicarse a acciones.
+        <div>
+            <input type="radio" name="p22" value="V"> Verdadero<br>
+            <input type="radio" name="p22" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Qué es una “divergencia oculta” en trading?
+        <div>
+            <input type="radio" name="p23" value="A"> A) Cuando el volumen supera al precio<br>
+            <input type="radio" name="p23" value="B"> B) Cuando el precio hace un retroceso, pero el indicador continúa la tendencia previa<br>
+            <input type="radio" name="p23" value="C"> C) Cuando el gráfico no muestra información<br>
+            <input type="radio" name="p23" value="D"> D) Cuando el análisis fundamental contradice al técnico
+        </div>
+    </li>
+    <li class="list-group-item">
+        Los patrones de continuación indican que la tendencia podría mantenerse.
+        <div>
+            <input type="radio" name="p24" value="V"> Verdadero<br>
+            <input type="radio" name="p24" value="F"> Falso
+        </div>
+    </li>
+    <li class="list-group-item">
+        ¿Cuál es la principal ventaja del análisis técnico sobre el análisis fundamental?
+        <div>
+            <input type="radio" name="p25" value="A"> A) Se basa en emociones del mercado<br>
+            <input type="radio" name="p25" value="B"> B) Permite tomar decisiones rápidas y basadas en el precio actual<br>
+            <input type="radio" name="p25" value="C"> C) Se enfoca solo en empresas tecnológicas<br>
+            <input type="radio" name="p25" value="D"> D) Requiere menos experiencia
+        </div>
+    </li>
+</ol>
+                    <button type="button" class="btn btn-primary mt-3" onclick="evaluarCurso()">Enviar Respuestas y ver resultados</button>
+                </form>
+            </div>
+        </div>
     </main>
+    <footer class="text-center py-3 bg-light">
+        <p class="mb-0">© 2025 Curso Avanzado. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        // Respuestas correctas para la evaluación
+        const respuestasCorrectas = {
+    p1: "B",
+    p2: "V",
+    p3: "C",
+    p4: "F",
+    p5: "B",
+    p6: "V",
+    p7: "C",
+    p8: "V",
+    p9: "B",
+    p10: "F",
+    p11: "B",
+    p12: "V",
+    p13: "A",
+    p14: "F",
+    p15: "B",
+    p16: "F",
+    p17: "C",
+    p18: "V",
+    p19: "A",
+    p20: "F",
+    p21: "B",
+    p22: "F",
+    p23: "B",
+    p24: "V",
+    p25: "B"
+};
+
+        function calcularRespuestasCorrectas() {
+            let correctas = 0;
+
+            for (const [pregunta, respuestaCorrecta] of Object.entries(respuestasCorrectas)) {
+                const seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+                if (seleccionada && seleccionada.value === respuestaCorrecta) {
+                    correctas++;
+                }
+            }
+
+            return correctas;
+        }
+
+        function evaluarCurso() {
+            const correctas = calcularRespuestasCorrectas();
+            const totalPreguntas = Object.keys(respuestasCorrectas).length;
+
+            if (correctas >= Math.ceil(totalPreguntas * 0.8)) { // 80% de respuestas correctas para aprobar
+                alert(`¡Felicidades! Obtuviste ${correctas}/${totalPreguntas} respuestas correctas. Tu certificado será generado.`);
+                generarCertificado(); // Llama a la función para generar el certificado
+            } else {
+                alert(`Obtuviste ${correctas}/${totalPreguntas} respuestas correctas. Te recomendamos repasar los módulos y volver a intentarlo.`);
+            }
+        }
+
+        function generarCertificado() {
+            const id_usuario = localStorage.getItem('id_usuario');
+            const id_curso = 3; // ID del curso avanzado
+
+            if (!id_usuario) {
+                alert("Error: No se encontró el ID del usuario. Por favor, inicia sesión.");
+                console.error("ID de usuario no encontrado en localStorage.");
+                return;
+            }
+
+            console.log("Datos enviados al backend:", { id_usuario, id_curso });
+
+            fetch('http://localhost:3000/api/certificado/generar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_usuario, id_curso })
+            })
+            .then(res => {
+                console.log("Respuesta del servidor (raw):", res);
+                if (!res.ok) {
+                    return res.json().then(err => {
+                        console.error("Error del servidor (detalles):", err);
+                        throw new Error(err.error || 'Error desconocido en el servidor');
+                    });
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log("Certificado generado exitosamente (data):", data);
+                alert("¡Certificado generado con éxito! Ahora puedes verlo en tu perfil.");
+                window.location.href = "Usuario.html";
+            })
+            .catch(err => {
+                console.error("Error al generar el certificado:", err);
+                alert("Hubo un error al generar el certificado: " + err.message);
+            });
+        }
+    </script>
 </body>
 </html>

@@ -59,13 +59,7 @@ function inscribirCurso(id_curso) {
         alert('Error: No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.');
         return;
     }
-    fetch(`http://localhost:3000/api/usuario/rol/${id_usuario}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.rol !== 'estudiante') {
-                alert('Error: Solo los usuarios con rol de "estudiante" pueden inscribirse en cursos.');
-                return;
-            }
+    
             fetch('http://localhost:3000/api/inscribir', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -83,10 +77,7 @@ function inscribirCurso(id_curso) {
                     }
                 })
                 .catch(error => console.error('Error al inscribir al curso:', error));
-        })
-        .catch(error => console.error('Error al verificar el rol del usuario:', error));
-}
-
+        }
 // Acceder a un curso (con código de pago)
 function accederCurso(id_curso, codigo_pago) {
     const codigoIngresado = prompt('Por favor, ingresa el código de pago para este curso:');
@@ -210,4 +201,33 @@ function cargarCertificados() {
 
 // Llama a la función al cargar la página del perfil
 document.addEventListener('DOMContentLoaded', cargarCertificados);
+
+function eliminarMiCuenta() {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (!id_usuario) {
+        alert('No se pudo identificar al usuario.');
+        return;
+    }
+
+    if (confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+        fetch(`http://localhost:3000/api/usuarios/${id_usuario}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al eliminar la cuenta');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message || 'Cuenta eliminada correctamente');
+            localStorage.clear(); // Limpiar datos del usuario
+            window.location.href = 'index.html'; // Redirigir al inicio
+        })
+        .catch(error => {
+            console.error('Error al eliminar la cuenta:', error);
+            alert('Hubo un error al eliminar la cuenta.');
+        });
+    }
+}
 

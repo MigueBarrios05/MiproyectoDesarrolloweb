@@ -39,6 +39,9 @@ header p {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Sombra más intensa */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden; /* Para evitar que el contenido sobresalga */
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -64,6 +67,8 @@ header p {
 .card-img-top {
     border-radius: 12px 12px 0 0; /* Bordes redondeados solo en la parte superior */
     transition: transform 0.3s ease, filter 0.3s ease;
+    height: 200px; /* Ajusta la altura de las imágenes para que sean uniformes */
+    object-fit: cover; /* Asegura que las imágenes se recorten correctamente */
 }
 
 .card-img-top:hover {
