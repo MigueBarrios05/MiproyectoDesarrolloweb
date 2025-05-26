@@ -13,7 +13,7 @@
     </header>
     <main class="container my-5">
         <p class="lead text-center">Bienvenido al Curso Avanzado. Aquí encontrarás contenido especializado para convertirte en un experto.</p>
-
+        <section id="modulo1" class="modulo">
         <!-- Módulo 1 -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-info text-white">
@@ -28,7 +28,10 @@
                     <li class="list-group-item">Market Profile y Order Flow básico</li>
                 </ul>
             </div>
+            <button class="btn btn-primary" onclick="mostrarModulo(2)">Siguiente</button>
         </div>
+        </section>
+    <section id="modulo2" class="modulo" style="display: none;">
 
         <!-- Módulo 2 -->
         <div class="card mb-4 shadow-sm border-0">
@@ -44,7 +47,11 @@
                     <li class="list-group-item">Sesgos cognitivos comunes en traders experimentados</li>
                 </ul>
             </div>
+            <button class="btn btn-secondary" onclick="mostrarModulo(1)">Anterior</button>
+            <button class="btn btn-primary mt-3" onclick="mostrarModulo(3)">Siguiente</button>
         </div>
+    </section>
+    <section id="modulo3" class="modulo" style="display: none;">
 
         <!-- Módulo 3 -->
         <div class="card mb-4 shadow-sm border-0">
@@ -60,8 +67,11 @@
                     <li class="list-group-item">Cómo afectan los ciclos económicos al mercado financiero</li>
                 </ul>
             </div>
+            <button class="btn btn-secondary" onclick="mostrarModulo(2)">Anterior</button>
+            <button class="btn btn-primary mt-3" onclick="mostrarModulo(4)">Siguiente</button>
         </div>
-
+    </section>
+    <section id="modulo4" class="modulo" style="display: none;">    
         <!-- Módulo 4 -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-danger text-white">
@@ -76,8 +86,11 @@
                     <li class="list-group-item">Automatización de alertas y entradas</li>
                 </ul>
             </div>
+            <button class="btn btn-secondary" onclick="mostrarModulo(3)">Anterior</button>
+            <button class="btn btn-primary mt-3" onclick="mostrarModulo(5)">Siguiente</button>
         </div>
-
+    </section>
+    <section id="modulo5" class="modulo" style="display: none;">
         <!-- Módulo 5 -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-secondary text-white">
@@ -92,8 +105,11 @@
                     <li class="list-group-item">Uso de stop-loss adaptativo y trailing stops</li>
                 </ul>
             </div>
+            <button class="btn btn-secondary" onclick="mostrarModulo(4)">Anterior</button>
+            <button class="btn btn-primary mt-3" onclick="mostrarModulo(6)">Siguiente</button>
         </div>
-
+    </section>
+    <section id="modulo6" class="modulo" style="display: none;">
         <!-- Evaluación Final -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-dark text-white">
@@ -304,14 +320,17 @@
         </div>
     </li>
 </ol>
+                    <button class="btn btn-secondary" onclick="mostrarModulo(5)">Anterior</button>
                     <button type="button" class="btn btn-primary mt-3" onclick="evaluarCurso()">Enviar Respuestas y ver resultados</button>
                 </form>
             </div>
         </div>
+    </section>
     </main>
     <footer class="text-center py-3 bg-light">
         <p class="mb-0">© 2025 Curso Avanzado. Todos los derechos reservados.</p>
     </footer>
+    <script src="scripts/moduloss.js"></script>
     <script>
         // Respuestas correctas para la evaluación
         const respuestasCorrectas = {

@@ -17,7 +17,7 @@
 
     <main class="container my-5">
         <!-- Módulos -->
-        <section class="mb-5">
+        <section id="modulo1" class="modulo">
             <div class="card border-0 shadow-lg rounded-4 futuristic-card mb-4">
                 <div class="card-header bg-primary bg-gradient text-white fw-bold fs-4 rounded-top-4 border-0">
                     🔹 Módulo 1: Psicología del Trading
@@ -31,12 +31,18 @@
                     </ul>
                     <p>El éxito en el trading no depende solo del conocimiento técnico, sino de la capacidad emocional del operador. Muchas pérdidas se deben a decisiones impulsivas. Este módulo proporciona herramientas para que el estudiante mantenga la calma y siga su plan de trading sin dejarse llevar por las emociones.</p>
                 </div>
+                
+                                <button class="btn btn-primary" onclick="mostrarModulo(2)">Siguiente</button>
+
             </div>
+        </section>
+        <section id="modulo2" class="modulo" style="display: none;">
 
             <div class="card border-0 shadow-lg rounded-4 futuristic-card mb-4">
                 <div class="card-header bg-primary bg-gradient text-white fw-bold fs-4 rounded-top-4 border-0">
                     🔹 Módulo 2: Análisis Técnico Avanzado
                 </div>
+
                 <div class="card-body">
                     <h5 class="fw-bold text-primary">¿Qué aprenderás?</h5>
                     <ul class="list-group list-group-flush mb-3">
@@ -46,8 +52,12 @@
                     </ul>
                     <p>El análisis técnico avanzado permite predecir con mayor precisión los movimientos del mercado. Aprenderás a leer mejor los gráficos, comprender señales de entrada/salida, y usar herramientas técnicas para construir estrategias más sólidas.</p>
                 </div>
+                    <button class="btn btn-secondary" onclick="mostrarModulo(1)">Anterior</button>
+                    <button class="btn btn-primary" onclick="mostrarModulo(3)">Siguiente</button>
             </div>
+</section>
 
+<section id="modulo3" class="modulo" style="display: none;">
             <div class="card border-0 shadow-lg rounded-4 futuristic-card mb-4">
                 <div class="card-header bg-primary bg-gradient text-white fw-bold fs-4 rounded-top-4 border-0">
                     🔹 Módulo 3: Análisis Fundamental en Trading
@@ -61,8 +71,12 @@
                     </ul>
                     <p>Además del análisis gráfico, los traders intermedios deben entender cómo los eventos económicos afectan los precios. Este módulo te enseñará a estar atento a los momentos clave del mercado y actuar con anticipación frente a las noticias.</p>
                 </div>
+                <button class="btn btn-secondary" onclick="mostrarModulo(2)">Anterior</button>
+                <button class="btn btn-primary" onclick="mostrarModulo(4)">Siguiente</button>
             </div>
+            </section>
 
+            <section id="modulo4" class="modulo" style="display: none;">
             <div class="card border-0 shadow-lg rounded-4 futuristic-card mb-4">
                 <div class="card-header bg-primary bg-gradient text-white fw-bold fs-4 rounded-top-4 border-0">
                     🔹 Módulo 4: Gestión del Riesgo y Capital
@@ -76,8 +90,11 @@
                     </ul>
                     <p>No basta con tener buenas entradas; sin una adecuada gestión del riesgo, cualquier cuenta puede irse a cero. Este módulo te enseñará a proteger tu dinero y a operar de forma profesional, controlando la exposición por operación y usando herramientas de protección.</p>
                 </div>
+                <button class="btn btn-secondary" onclick="mostrarModulo(3)">Anterior</button>
+                <button class="btn btn-primary" onclick="mostrarModulo(5)">Siguiente</button>
             </div>
-
+            </section>
+            <section id="modulo5" class="modulo" style="display: none;">
             <div class="card border-0 shadow-lg rounded-4 futuristic-card mb-4">
                 <div class="card-header bg-primary bg-gradient text-white fw-bold fs-4 rounded-top-4 border-0">
                     🔹 Módulo 5: Estrategias de Trading Intermedio
@@ -91,11 +108,13 @@
                     </ul>
                     <p>Aquí se aplican todos los conocimientos técnicos en estrategias concretas que puedes practicar. También se enseña cómo adaptar una estrategia al estilo personal del trader y cómo evaluar su efectividad mediante el backtesting.</p>
                 </div>
+                <button class="btn btn-secondary" onclick="mostrarModulo(4)">Anterior</button>
+                <button class="btn btn-primary" onclick="mostrarModulo(6)">Siguiente</button>
             </div>
         </section>
 
         <!-- Evaluación Final -->
-        <section class="mb-5">
+        <section id="modulo6" class="modulo" style="display: none;">   
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-header bg-gradient bg-success text-white fw-bold fs-4 rounded-top-4 border-0">
                     🎓 Evaluación Final del Curso
@@ -425,6 +444,7 @@
                         </div>
 
                         <div class="text-center">
+                            <button class="btn btn-secondary" onclick="mostrarModulo(5)">Anterior</button>
                             <button type="button" class="btn btn-primary btn-lg px-5" onclick="evaluarCurso()">Enviar y ver resultado</button>
                         </div>
                         <div id="resultado-evaluacion" class="mt-4"></div>
@@ -433,10 +453,11 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </section>
     </main>
-
+    <script src="scripts/moduloss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Respuestas correctas para la evaluación
