@@ -380,49 +380,56 @@
 
             if (correctas >= Math.ceil(totalPreguntas * 0.8)) { // 80% de respuestas correctas para aprobar
                 alert(`¡Felicidades! Obtuviste ${correctas}/${totalPreguntas} respuestas correctas. Tu certificado será generado.`);
-                generarCertificado(); // Llama a la función para generar el certificado
-            } else {
+// Solicitar el documento de identificación
+            let documento = prompt("Por favor, ingresa tu documento de identificación (6-10 caracteres, solo números):");
+
+            // Validar el documento
+            while (!/^\d{6,10}$/.test(documento)) {
+            documento = prompt("Documento inválido. Por favor, ingresa un documento válido (6-10 caracteres, solo números):");
+        }
+
+        // Generar el certificado
+        generarCertificado(documento);
+                } else {
                 alert(`Obtuviste ${correctas}/${totalPreguntas} respuestas correctas. Te recomendamos repasar los módulos y volver a intentarlo.`);
             }
         }
 
-        function generarCertificado() {
-            const id_usuario = localStorage.getItem('id_usuario');
-            const id_curso = 3; // ID del curso avanzado
+        function generarCertificado(documento) {
+    const id_usuario = localStorage.getItem('id_usuario'); // Asegúrate de que esté guardado al iniciar sesión
+    const id_curso = 1; // Cambia este valor según el curso
 
-            if (!id_usuario) {
-                alert("Error: No se encontró el ID del usuario. Por favor, inicia sesión.");
-                console.error("ID de usuario no encontrado en localStorage.");
-                return;
-            }
+    if (!id_usuario) {
+        alert("Error: No se encontró el ID del usuario.");
+        return;
+    }
 
-            console.log("Datos enviados al backend:", { id_usuario, id_curso });
+    console.log("Enviando datos:", { id_usuario, id_curso, documento }); // Para depuración
 
-            fetch('http://localhost:3000/api/certificado/generar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_usuario, id_curso })
-            })
-            .then(res => {
-                console.log("Respuesta del servidor (raw):", res);
-                if (!res.ok) {
-                    return res.json().then(err => {
-                        console.error("Error del servidor (detalles):", err);
-                        throw new Error(err.error || 'Error desconocido en el servidor');
-                    });
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log("Certificado generado exitosamente (data):", data);
-                alert("¡Certificado generado con éxito! Ahora puedes verlo en tu perfil.");
-                window.location.href = "Usuario.html";
-            })
-            .catch(err => {
-                console.error("Error al generar el certificado:", err);
-                alert("Hubo un error al generar el certificado: " + err.message);
+    fetch('http://localhost:3000/api/certificado/generar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_usuario, id_curso, documento })
+    })
+    .then(res => {
+        console.log("Respuesta del servidor:", res); // Para depuración
+        if (!res.ok) {
+            return res.json().then(err => {
+                throw new Error(err.error || 'Error desconocido en el servidor');
             });
         }
+        return res.json();
+    })
+    .then(data => {
+        console.log("Certificado generado:", data); // Para depuración
+        alert("¡Certificado generado con éxito! Ahora puedes verlo en tu perfil.");
+        window.location.href = "Usuario.html"; // Redirige al perfil del usuario
+    })
+    .catch(err => {
+        console.error("Error al generar el certificado:", err);
+        alert("Hubo un error al generar el certificado: " + err.message);
+    });
+}
     </script>
 </body>
 </html>

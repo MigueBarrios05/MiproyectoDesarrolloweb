@@ -73,29 +73,64 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('formAgregarCurso').addEventListener('submit', event => {
             event.preventDefault();
 
-            const nombreCurso = document.getElementById('nombreCurso').value;
-            const descripcionCurso = document.getElementById('descripcionCurso').value;
+            const nombreCurso = document.getElementById('nombreCurso').value.trim();
+            const descripcionCurso = document.getElementById('descripcionCurso').value.trim();
             const enlaceCurso = document.getElementById('enlaceCurso').value;
 
-            fetch('http://localhost:3000/api/cursos', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre_curso: nombreCurso, descripcion: descripcionCurso, enlace: enlaceCurso })
-            })
+            // Validar que el nombre del curso no se repita
+            fetch('http://localhost:3000/api/cursos')
                 .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message); // Mostrar el mensaje del backend
-                        cargarCursos(); // Actualizar la lista de cursos
-                    } else if (data.error) {
-                        alert(`Error: ${data.error}`); // Mostrar el error del backend
-                    } else {
-                        alert('Hubo un problema al agregar el curso.');
+                .then(cursos => {
+                    const nombresExistentes = cursos.map(curso => curso.nombre_curso.toLowerCase());
+                    if (nombresExistentes.includes(nombreCurso.toLowerCase())) {
+                        alert('El nombre del curso ya existe. Por favor, elige otro nombre.');
+                        return;
                     }
+
+                    // Si el nombre no se repite, enviar la solicitud para agregar el curso
+                    fetch('http://localhost:3000/api/cursos', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nombre_curso: nombreCurso, descripcion: descripcionCurso, enlace: enlaceCurso })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                alert(data.message); // Mostrar el mensaje del backend
+                                cargarCursos(); // Actualizar la lista de cursos
+                            } else if (data.error) {
+                                alert(`Error: ${data.error}`); // Mostrar el error del backend
+                            } else {
+                                alert('Hubo un problema al agregar el curso.');
+                            }
+                        })
+                        .catch(error => console.error('Error al agregar el curso:', error));
                 })
-                .catch(error => console.error('Error al agregar el curso:', error));
+                .catch(error => console.error('Error al validar el nombre del curso:', error));
         });
     }
+});
+
+// Guardar el estado de sesión al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    const tipoUsuario = window.location.pathname.includes('Perfiladmin.html') ? 'admin' : 'usuario';
+    const idUsuario = localStorage.getItem('id_usuario'); // Asegúrate de que este valor esté configurado al iniciar sesión
+
+    if (!idUsuario) {
+        alert('No se encontró una sesión activa. Redirigiendo al inicio de sesión.');
+        window.location.href = 'login.html'; // Redirige al inicio de sesión si no hay sesión activa
+        return;
+    }
+
+    // Guardar el estado de sesión en localStorage
+    localStorage.setItem('sesion_activa', JSON.stringify({
+        idUsuario: idUsuario,
+        tipoUsuario: tipoUsuario,
+        timestamp: Date.now()
+    }));
+
+    // Guardar la marca de tiempo en sessionStorage para la pestaña actual
+    sessionStorage.setItem('sesion_timestamp', Date.now());
 });
 
 document.addEventListener('DOMContentLoaded', cargarCursos);

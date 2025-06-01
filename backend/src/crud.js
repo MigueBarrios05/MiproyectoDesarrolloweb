@@ -326,19 +326,30 @@ router.delete('/cursos/:id', (req, res) => {
     });
 });
 
-
 // Ruta para generar un certificado
 router.post('/certificado/generar', (req, res) => {
-    const { id_usuario, id_curso } = req.body;
+    const { id_usuario, id_curso, documento } = req.body;
 
-    if (!id_usuario || !id_curso) {
-        return res.status(400).json({ error: 'ID de usuario y curso son obligatorios.' });
+    // Validar datos recibidos
+    if (!id_usuario || !id_curso || !documento) {
+        return res.status(400).json({ error: 'ID de usuario, curso y documento son obligatorios.' });
     }
 
-    const query = 'INSERT INTO Certificado (id_usuario, id_curso, fecha_emision) VALUES (?, ?, NOW())';
-    db.query(query, [id_usuario, id_curso], (err, result) => {
+    if (!/^\d{6,10}$/.test(documento)) {
+        return res.status(400).json({ error: 'El documento debe tener entre 6 y 10 caracteres y solo números.' });
+    }
+
+    // Consulta para insertar el certificado
+    const query = 'INSERT INTO Certificado (id_usuario, id_curso, documento, fecha_emision) VALUES (?, ?, ?, NOW())';
+    db.query(query, [id_usuario, id_curso, documento], (err, result) => {
         if (err) {
-            console.error('Error al generar el certificado:', err); // Muestra el error completo
+            console.error('Error al generar el certificado:', err); // Muestra el error completo en la consola
+            if (err.code === 'ER_NO_REFERENCED_ROW_2') {
+                return res.status(400).json({ error: 'El usuario o el curso no existen.' });
+            }
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(400).json({ error: 'El certificado ya existe para este usuario y curso.' });
+            }
             return res.status(500).json({ error: 'Error al generar el certificado.' });
         }
 
@@ -355,7 +366,7 @@ router.get('/certificados/:id_usuario', (req, res) => {
     }
 
     const query = `
-        SELECT c.id_curso, c.nombre_curso, cert.fecha_emision
+        SELECT c.id_curso, c.nombre_curso, cert.fecha_emision, cert.documento
         FROM Certificado cert
         INNER JOIN Curso c ON cert.id_curso = c.id_curso
         WHERE cert.id_usuario = ?

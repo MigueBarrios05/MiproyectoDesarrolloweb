@@ -92,6 +92,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="scripts/usuario.js"></script>
+    <script>
+
+// Detectar cambios en localStorage
+window.addEventListener('storage', (event) => {
+    if (event.key === 'sesion_activa') {
+        const sesionActual = JSON.parse(localStorage.getItem('sesion_activa'));
+
+        // Verificar si la sesión actual pertenece a otro usuario o tipo de usuario
+        if (!sesionActual || sesionActual.timestamp !== sessionStorage.getItem('sesion_timestamp')) {
+            alert('Tu sesión ha sido cerrada porque se inició sesión en otra pestaña.');
+            cerrarSesion();
+        }
+    }
+});
+
+    </script>
     
         
 </body>

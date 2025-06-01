@@ -4,31 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificado</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Archivo CSS personalizado -->
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilo personalizado */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+
+        .text-primary {
+            color: #0d6efd !important;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .text-muted {
+            color: #bbbbbb !important;
+            font-size: 1.2rem;
+        }
+
+        .fw-bold {
+            color: #ffffff !important;
+            font-size: 1.3rem;
+        }
+
+        .btn-secondary {
+            background-color: #333;
+            border-color: #444;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+            border-color: #555;
+        }
+    </style>
 </head>
-<body class="bg-dark text-light">
+<body>
     <main class="container my-5">
-        <section id="certificado-section" class="text-center">
-            <h1 class="text-success fw-bold mb-4">Certificado de Curso</h1>
-            <div id="certificado-detalles" class="card shadow-lg border-0 bg-gradient rounded-4 p-4">
-                <!-- Aquí se mostrarán los detalles del certificado -->
-                <div class="text-center">
-                    <h2 class="text-primary fw-bold" id="curso-nombre">Nombre del Curso</h2>
-                    <p class="text-light" id="fecha-emision">Fecha de Emisión: --/--/----</p>
-                    <p class="text-success fw-bold">¡Felicidades por completar el curso!</p>
-                </div>
+        <div class="text-center fade-in">
+            <h1 class="text-success fw-bold">Certificado de Curso</h1>
+            <p class="lead">Este certificado acredita que el usuario ha completado satisfactoriamente el curso.</p>
+            <div class="card shadow-lg border-0 rounded-4 p-4 fade-in">
+                <h2 id="certificado-curso" class="text-primary"></h2>
+                <p id="certificado-fecha" class="text-muted"></p>
+                <p id="certificado-documento" class="fw-bold"></p>
+                <p id="certificado-nombre" class="fw-bold"></p>
             </div>
-        </section>
-        <div class="text-center mt-4">
-            <a href="Usuario.html" class="btn btn-outline-light rounded-pill">Volver al Perfil</a>
+            <button class="btn btn-secondary mt-4 fade-in" onclick="volver()">Volver</button>
         </div>
     </main>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Archivo JavaScript -->
-    <script src="scripts/certificado.js"></script>
+
+    <script>
+        // Cargar los datos del certificado desde localStorage
+        document.getElementById('certificado-curso').textContent = `Curso: ${localStorage.getItem('certificado_nombre_curso')}`;
+        document.getElementById('certificado-fecha').textContent = `Fecha de emisión: ${new Date(localStorage.getItem('certificado_fecha_emision')).toLocaleDateString()}`;
+        document.getElementById('certificado-documento').textContent = `Documento: ${localStorage.getItem('certificado_documento')}`;
+        document.getElementById('certificado-nombre').textContent = `Nombre del Usuario: ${localStorage.getItem('nombre')}`;
+
+        // Función para volver a la página de usuario
+        function volver() {
+            window.location.href = 'Usuario.html';
+        }
+    </script>
 </body>
 </html>

@@ -158,7 +158,7 @@ function cerrarSesion() {
 
 // Cargar certificados del usuario
 function cargarCertificados() {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtén el ID del usuario desde localStorage
+    const id_usuario = localStorage.getItem('id_usuario');
 
     if (!id_usuario) {
         console.error("No se encontró el ID del usuario en localStorage.");
@@ -177,18 +177,15 @@ function cargarCertificados() {
             certificadosLista.innerHTML = ''; // Limpia el contenedor antes de llenarlo
 
             if (data.length === 0) {
-                certificadosLista.innerHTML = '<p>No tienes certificados generados.</p>';
+                certificadosLista.innerHTML = '<p>No tienes certificados aún.</p>';
             } else {
                 data.forEach(certificado => {
                     const item = document.createElement('div');
-                    item.classList.add('certificado-item');
+                    item.className = 'certificado-item';
                     item.innerHTML = `
-                        <h4>${certificado.nombre_curso}</h4>
+                        <h5>Curso: ${certificado.nombre_curso}</h5>
                         <p>Fecha de emisión: ${new Date(certificado.fecha_emision).toLocaleDateString()}</p>
-                        <a href="certificado.html?id_curso=${certificado.id_curso}&id_usuario=${id_usuario}" 
-                           class="btn btn-primary rounded-pill" target="_blank">
-                           Ver Certificado
-                        </a>
+                        <button class="btn btn-primary" onclick="verCertificado('${certificado.nombre_curso}', '${certificado.fecha_emision}', '${certificado.documento}')">Ver Certificado</button>
                     `;
                     certificadosLista.appendChild(item);
                 });
@@ -197,6 +194,16 @@ function cargarCertificados() {
         .catch(error => {
             console.error('Error al cargar los certificados:', error);
         });
+}
+
+function verCertificado(nombre_curso, fecha_emision, documento) {
+    // Guarda los datos del certificado en localStorage
+    localStorage.setItem('certificado_nombre_curso', nombre_curso);
+    localStorage.setItem('certificado_fecha_emision', fecha_emision);
+    localStorage.setItem('certificado_documento', documento);
+
+    // Redirige a la página del certificado
+    window.location.href = 'certificado.html';
 }
 
 // Llama a la función al cargar la página del perfil
